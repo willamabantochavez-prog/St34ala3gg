@@ -73,19 +73,14 @@ task.spawn(function(...)
             for _, v in ipairs(getgc(false)) do
                 if not (type(v) == "function" and islclosure(v)) then continue end
                 local ok, result = pcall(debug.getinfo, v)
-                if ok then
-                    if result then result = result.source == p20 end
-                    ok = result
-                end
+                if ok then if result then result = result.source == p20 end ok = result end
                 if not ok then continue end
                 local ok6, result6 = pcall(debug.getconstants, v)
                 if not (ok6 and result6) then continue end
                 local v661 = true
                 for v664, v665 in ipairs(p21) do
                     local v666 = false
-                    for _, v2 in pairs(result6) do
-                        if v2 == v665 then v666 = true break end
-                    end
+                    for _, v2 in pairs(result6) do if v2 == v665 then v666 = true break end end
                     if not v666 then v661 = false break end
                 end
                 if v661 then pcall(hookfunction, v, newcclosure(p22)) end
@@ -115,17 +110,12 @@ task.spawn(function(...)
         for _, v in ipairs(getgc(false)) do
             if type(v) == "function" and islclosure(v) then
                 local ok, result = pcall(debug.getinfo, v)
-                if ok then
-                    if result then result = result.source == "=ReplicatedFirst.UGI.ContentCatalog.Runtime" end
-                    ok = result
-                end
+                if ok then if result then result = result.source == "=ReplicatedFirst.UGI.ContentCatalog.Runtime" end ok = result end
                 if ok then
                     local v377 = debug.getupvalues(v)
                     for _, v380 in pairs(v377) do
                         local v381 = type(v380) == "table"
-                        if v381 then v381 = rawget(v380, "Evidence")
-                            if v381 then v381 = rawget(v380, "ThreatLevel") end
-                        end
+                        if v381 then v381 = rawget(v380, "Evidence") if v381 then v381 = rawget(v380, "ThreatLevel") end end
                         if v381 then t11.value11 = v380 return t11.value11 end
                     end
                 end
@@ -222,27 +212,29 @@ task.spawn(function(...)
     t11.value13 = _loadstring(v3(t10.value10))()
     local value13 = t11.value13
 
-    -- ═══ THEME (Eclipse Fire) ═══
+    -- ═══════════════════════════════════
+    -- THEME: Eclipse Ultra Pro
+    -- ═══════════════════════════════════
     t10.value16 = Color3.fromHex("#FF6B35")
-    local color3 = Color3.fromHex("#0D0800")
+    local color3 = Color3.fromHex("#060300")
     t10.value21 = "\226\149\241\192{\140\163"
     t10.value14 = "G\188T \143a'"
     t10.value22 = 8757354396668
     t10.value15 = Color3.fromHex
     t10.value23 = 4302751982624
     t10.value2 = "AddTheme"
-    local v221 = t10.value15("#FF6B35")
+    local v221 = t10.value15("#FF4500")
     local fromHex = Color3.fromHex
     t10.value18 = "\128Ո\221"
     t10.value13 = 14154134431884
-    t10.value14 = fromHex("#1A0F00")
+    t10.value14 = fromHex("#0A0500")
     t10.value2 = value13.AddTheme
-    local color3_2 = Color3.fromHex("#FFF0E5")
-    t10.value18 = Color3.fromHex("#FFB380")
-    t10.value23 = Color3.fromHex("#FF8C42")
+    local color3_2 = Color3.fromHex("#FFFAF5")
+    t10.value18 = Color3.fromHex("#D4956A")
+    t10.value23 = Color3.fromHex("#FF7B3A")
     local color3_3 = Color3.fromHex("#FFD700")
     t10.value2(value13, {
-        Name = "EclipseFire",
+        Name = "EclipseUltra",
         Accent = t10.value16,
         Background = color3,
         Outline = v221,
@@ -277,19 +269,21 @@ task.spawn(function(...)
     t10.value13 = t10.value23.RightShift
     local uDim = UDim.new(0, 0)
     local new = ColorSequence.new
-    local color3_4 = Color3.fromHex("#FF6B35")
+    local color3_4 = Color3.fromHex("#FF4500")
     local fromHex2 = Color3.fromHex
     t10.value2 = value13_2.CreateWindow
     local v231 = new(color3_4, fromHex2("#FFD700"))
 
-    -- ═══ WINDOW ═══
+    -- ═══════════════════════════════════
+    -- WINDOW CREATION
+    -- ═══════════════════════════════════
     t10.value2 = t10.value2(value13_2, {
         Title = "Eclipse Steal a Egg",
         Icon = "rbxassetid://104937666038724",
         Author = "Eclipse OG Finder",
         Folder = "STEAL_AN_EGG_CONFIG",
         Size = t10.value14,
-        Theme = "EclipseFire",
+        Theme = "EclipseUltra",
         Transparent = false,
         ToggleKey = t10.value13,
         OpenButton = {
@@ -339,9 +333,7 @@ task.spawn(function(...)
         if not StealAreas then return true end
         if type(StealAreas) == "string" then return StealAreas == "All" or StealAreas == p23 end
         if type(StealAreas) == "table" then
-            for _, v in pairs(StealAreas) do
-                if v == "All" or v == p23 then return true end
-            end
+            for _, v in pairs(StealAreas) do if v == "All" or v == p23 then return true end end
             if StealAreas.All or StealAreas[p23] then return true end
         end
         return false
@@ -439,10 +431,7 @@ task.spawn(function(...)
             local Egg = v411.Egg
             if Egg then Egg = v411.Egg.DisplayName end
             if Egg then t14.eggName = v411.Egg.DisplayName else t14.eggName = t14.displayName .. " Egg" end
-            if v411.EarningRate then
-                t14.cps = v411.EarningRate
-                t14.cpsFormatted = "+" .. t11.value18(v411.EarningRate) .. "/s"
-            end
+            if v411.EarningRate then t14.cps = v411.EarningRate t14.cpsFormatted = "+" .. t11.value18(v411.EarningRate) .. "/s" end
             if v411.Rarity then
                 local Rarity = v411.Rarity
                 local DisplayName = Rarity.DisplayName
@@ -630,10 +619,7 @@ task.spawn(function(...)
                     local v490 = math.floor((v488.Position - v481).Magnitude)
                     local v491 = t11.value23[Uid]
                     local v492 = not v491
-                    if not v492 then
-                        v492 = not v491.Anchor
-                        if not v492 then v492 = not v491.Anchor.Parent end
-                    end
+                    if not v492 then v492 = not v491.Anchor if not v492 then v492 = not v491.Anchor.Parent end end
                     if v492 then
                         local Part = Instance.new("Part")
                         Part.Name = "ESPAnchor_" .. Uid
@@ -657,19 +643,19 @@ task.spawn(function(...)
 
                         local Frame = Instance.new("Frame")
                         Frame.Size = UDim2.new(1, 0, 1, 0)
-                        Frame.BackgroundColor3 = Color3.fromRGB(10, 5, 0)
-                        Frame.BackgroundTransparency = 0.15
+                        Frame.BackgroundColor3 = Color3.fromRGB(6, 3, 0)
+                        Frame.BackgroundTransparency = 0.1
                         Frame.BorderSizePixel = 0
                         Frame.Parent = BillboardGui
 
                         local ESPCorner = Instance.new("UICorner")
-                        ESPCorner.CornerRadius = UDim.new(0, 6)
+                        ESPCorner.CornerRadius = UDim.new(0, 8)
                         ESPCorner.Parent = Frame
 
                         local UIStroke = Instance.new("UIStroke")
                         UIStroke.Color = v489.rarityColor
                         UIStroke.Thickness = 1.5
-                        UIStroke.Transparency = 0.1
+                        UIStroke.Transparency = 0.05
                         UIStroke.Parent = Frame
 
                         local TextLabel = Instance.new("TextLabel")
@@ -678,7 +664,7 @@ task.spawn(function(...)
                         TextLabel.BackgroundTransparency = 1
                         TextLabel.Font = Enum.Font.GothamBold
                         TextLabel.TextScaled = true
-                        TextLabel.TextColor3 = Color3.fromRGB(245, 245, 255)
+                        TextLabel.TextColor3 = Color3.fromRGB(255, 250, 245)
                         TextLabel.TextXAlignment = Enum.TextXAlignment.Left
                         TextLabel.TextTruncate = Enum.TextTruncate.AtEnd
                         TextLabel.Text = v489.displayName
@@ -716,14 +702,12 @@ task.spawn(function(...)
                         TextLabel15.BackgroundTransparency = 1
                         TextLabel15.Font = Enum.Font.Gotham
                         TextLabel15.TextScaled = true
-                        TextLabel15.TextColor3 = Color3.fromHex("#FFB380")
+                        TextLabel15.TextColor3 = Color3.fromHex("#D4956A")
                         TextLabel15.TextXAlignment = Enum.TextXAlignment.Left
                         TextLabel15.Text = string.format("📍 %s  [%dm]", v486.AreaId or "Zone", v490)
                         TextLabel15.Parent = Frame
 
-                        local value23 = t11.value23
-                        local v503 = v486.AreaId or "Zone"
-                        value23[Uid] = { Billboard = BillboardGui, Anchor = Part, SubLabel = TextLabel15, AreaId = v503 }
+                        t11.value23[Uid] = { Billboard = BillboardGui, Anchor = Part, SubLabel = TextLabel15, AreaId = v486.AreaId or "Zone" }
                     else
                         if v491.SubLabel then v491.SubLabel.Text = string.format("📍 %s  [%dm]", v491.AreaId, v490) end
                         if v491.Anchor then v491.Anchor.CFrame = v488 end
@@ -935,14 +919,9 @@ task.spawn(function(...)
                             local v697 = t11.value29[v695.Uid]
                             if v697 then v697 = timestamp < t11.value29[v695.Uid] end
                             if v696 then v696 = v695.State == "Slot" if v696 then v696 = v695.Uid and not v697 end end
-                            if v696 then
-                                local v698 = t11.value20(v695)
-                                table.insert(t20, { record = v695, meta = v698 })
-                            end
+                            if v696 then local v698 = t11.value20(v695) table.insert(t20, { record = v695, meta = v698 }) end
                         end
-                        if t11.value15.PrioritizeBestEggs then
-                            table.sort(t20, function(p36, p37) return p36.meta.score > p37.meta.score end)
-                        end
+                        if t11.value15.PrioritizeBestEggs then table.sort(t20, function(p36, p37) return p36.meta.score > p37.meta.score end) end
                         for _, v in ipairs(t20) do
                             local v701 = not t11.value15.AutoSteal
                             if not v701 then local v702 = t11.value21() v701 = not (v702 ~= nil and v702.Health > 0) end
@@ -1092,9 +1071,9 @@ task.spawn(function(...)
     t10.value2 = t11.value5
     if t10.value2.Character then t11.value31(t11.value5.Character) end
 
-    -- ═══════════════════════════════════════
-    -- TABS & UI ELEMENTS
-    -- ═══════════════════════════════════════
+    -- ═══════════════════════════════════
+    -- TABS (all logic preserved exactly)
+    -- ═══════════════════════════════════
 
     local value14 = t11.value14
     local Tab = value14.Tab
@@ -1178,8 +1157,7 @@ task.spawn(function(...)
     }
     for _, v in ipairs(zoneData) do
         local name, pos = v[1], v[2]
-        v277:Button({ Title = "Teleport to " .. name, Desc = "Teleports directly to " .. name,
-            Callback = function() v248(pos) end })
+        v277:Button({ Title = "Teleport to " .. name, Desc = "Teleports directly to " .. name, Callback = function() v248(pos) end })
     end
 
     local v298 = t11.value14:Tab({ Title = "Visuals", Icon = "eye" })
@@ -1224,10 +1202,10 @@ task.spawn(function(...)
             t11.value13:Notify({ Title = "YouTube Copied!", Content = "YouTube link copied to clipboard: https://youtube.com/@SAIOPS-CC", Icon = "rbxassetid://104937666038724", Duration = 3 })
         end })
 
-    t11.value13:Notify({ Title = "Eclipse Loaded", Content = "Press Right Shift or use the floating button to toggle the menu.", Icon = "rbxassetid://104937666038724", Duration = 5 })
+    t11.value13:Notify({ Title = "☀️ Eclipse Loaded", Content = "Press Right Shift or use the floating button to toggle the menu.", Icon = "rbxassetid://104937666038724", Duration = 5 })
 
     -- ═══════════════════════════════════════════════
-    -- WINDUI WINDOW FINDER (fixed - iterates all children)
+    -- WINDUI FINDER (fixed)
     -- ═══════════════════════════════════════════════
 
     t11.value32 = nil
@@ -1259,9 +1237,9 @@ task.spawn(function(...)
         return nil
     end
 
-    -- ═══════════════════════════════════════════════
-    -- LAUNCHER BUTTON (Eclipse style)
-    -- ═══════════════════════════════════════════════
+    -- ═══════════════════════════════════════════════════════════════
+    -- ☀️ LAUNCHER BUTTON — CORONA SOLAR ULTRA PRO
+    -- ═══════════════════════════════════════════════════════════════
 
     local launcherParent = gethui and gethui()
     if not launcherParent then launcherParent = game:GetService("CoreGui") if not launcherParent then launcherParent = t11.value5:WaitForChild("PlayerGui") end end
@@ -1276,42 +1254,143 @@ task.spawn(function(...)
     ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
     ScreenGui.Parent = launcherParent
 
+    -- Main launcher frame
     t11.value34 = Instance.new("Frame")
     t11.value34.Name = "MainFrame"
-    t11.value34.Size = UDim2.fromOffset(50, 50)
-    t11.value34.Position = UDim2.new(1, -70, 1, -70)
-    t11.value34.BackgroundColor3 = Color3.fromHex("#0D0800")
+    t11.value34.Size = UDim2.fromOffset(52, 52)
+    t11.value34.Position = UDim2.new(1, -72, 1, -72)
+    t11.value34.BackgroundColor3 = Color3.fromHex("#0A0500")
     t11.value34.BorderSizePixel = 0
     t11.value34.Active = true
     t11.value34.Parent = ScreenGui
 
     local launcherCorner = Instance.new("UICorner")
-    launcherCorner.CornerRadius = UDim.new(0, 12)
+    launcherCorner.CornerRadius = UDim.new(1, 0)
     launcherCorner.Parent = t11.value34
 
-    local launcherGlow = Instance.new("UIStroke")
-    launcherGlow.Color = Color3.fromHex("#FF6B35")
-    launcherGlow.Thickness = 4
-    launcherGlow.Transparency = 0.65
-    launcherGlow.Parent = t11.value34
+    -- ☀️ Corona outer glow (pulsing halo)
+    local coronaOuter = Instance.new("Frame")
+    coronaOuter.Name = "CoronaOuter"
+    coronaOuter.Size = UDim2.fromOffset(86, 86)
+    coronaOuter.Position = UDim2.fromScale(0.5, 0.5)
+    coronaOuter.AnchorPoint = Vector2.new(0.5, 0.5)
+    coronaOuter.BackgroundColor3 = Color3.fromHex("#FF4500")
+    coronaOuter.BackgroundTransparency = 0.65
+    coronaOuter.BorderSizePixel = 0
+    coronaOuter.ZIndex = 0
+    coronaOuter.Active = false
+    coronaOuter.Parent = t11.value34
 
+    local coronaOuterCorner = Instance.new("UICorner")
+    coronaOuterCorner.CornerRadius = UDim.new(1, 0)
+    coronaOuterCorner.Parent = coronaOuter
+
+    -- Corona middle glow
+    local coronaMid = Instance.new("Frame")
+    coronaMid.Name = "CoronaMid"
+    coronaMid.Size = UDim2.fromOffset(72, 72)
+    coronaMid.Position = UDim2.fromScale(0.5, 0.5)
+    coronaMid.AnchorPoint = Vector2.new(0.5, 0.5)
+    coronaMid.BackgroundColor3 = Color3.fromHex("#FF6B35")
+    coronaMid.BackgroundTransparency = 0.55
+    coronaMid.BorderSizePixel = 0
+    coronaMid.ZIndex = 0
+    coronaMid.Active = false
+    coronaMid.Parent = t11.value34
+
+    local coronaMidCorner = Instance.new("UICorner")
+    coronaMidCorner.CornerRadius = UDim.new(1, 0)
+    coronaMidCorner.Parent = coronaMid
+
+    -- Corona inner glow (golden)
+    local coronaInner = Instance.new("Frame")
+    coronaInner.Name = "CoronaInner"
+    coronaInner.Size = UDim2.fromOffset(62, 62)
+    coronaInner.Position = UDim2.fromScale(0.5, 0.5)
+    coronaInner.AnchorPoint = Vector2.new(0.5, 0.5)
+    coronaInner.BackgroundColor3 = Color3.fromHex("#FFD700")
+    coronaInner.BackgroundTransparency = 0.7
+    coronaInner.BorderSizePixel = 0
+    coronaInner.ZIndex = 0
+    coronaInner.Active = false
+    coronaInner.Parent = t11.value34
+
+    local coronaInnerCorner = Instance.new("UICorner")
+    coronaInnerCorner.CornerRadius = UDim.new(1, 0)
+    coronaInnerCorner.Parent = coronaInner
+
+    -- Animated gradient stroke on launcher
+    local launcherStrokeGrad = Instance.new("UIStroke")
+    launcherStrokeGrad.Color = Color3.fromHex("#FFFFFF")
+    launcherStrokeGrad.Thickness = 2.5
+    launcherStrokeGrad.Transparency = 0.05
+    launcherStrokeGrad.Parent = t11.value34
+
+    local lGrad = Instance.new("UIGradient")
+    lGrad.Color = ColorSequence.new({
+        ColorSequenceKeypoint.new(0, Color3.fromHex("#FF4500")),
+        ColorSequenceKeypoint.new(0.2, Color3.fromHex("#FF6B35")),
+        ColorSequenceKeypoint.new(0.4, Color3.fromHex("#FFD700")),
+        ColorSequenceKeypoint.new(0.6, Color3.fromHex("#FFFFFF")),
+        ColorSequenceKeypoint.new(0.8, Color3.fromHex("#FFD700")),
+        ColorSequenceKeypoint.new(1, Color3.fromHex("#FF4500"))
+    })
+    lGrad.Parent = launcherStrokeGrad
+
+    -- Logo image
     local ImageButton = Instance.new("ImageButton")
     ImageButton.Name = "LogoButton"
-    ImageButton.Size = UDim2.fromScale(1, 1)
+    ImageButton.Size = UDim2.fromScale(0.75, 0.75)
+    ImageButton.Position = UDim2.fromScale(0.125, 0.125)
     ImageButton.BackgroundTransparency = 1
     ImageButton.Image = "rbxassetid://104937666038724"
+    ImageButton.ZIndex = 2
     ImageButton.Parent = t11.value34
 
-    t11.value35 = Instance.new("UIStroke")
-    t11.value35.Color = Color3.fromHex("#FF6B35")
-    t11.value35.Thickness = 1.5
-    t11.value35.Parent = t11.value34
-
+    -- Store references for animations
+    t11.value35 = launcherStrokeGrad
     t11.value36 = false
     t11.value37 = false
     t11.value38 = nil
     t11.value39 = nil
 
+    -- ══ Corona pulse animation ══
+    task.spawn(function()
+        while coronaOuter.Parent do
+            t11.value2:Create(coronaOuter, TweenInfo.new(2.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
+                Size = UDim2.fromOffset(96, 96), BackgroundTransparency = 0.5
+            }):Play()
+            t11.value2:Create(coronaMid, TweenInfo.new(2.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
+                Size = UDim2.fromOffset(80, 80), BackgroundTransparency = 0.4
+            }):Play()
+            t11.value2:Create(coronaInner, TweenInfo.new(2.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
+                Size = UDim2.fromOffset(68, 68), BackgroundTransparency = 0.55
+            }):Play()
+            task.wait(2.5)
+
+            t11.value2:Create(coronaOuter, TweenInfo.new(2.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
+                Size = UDim2.fromOffset(86, 86), BackgroundTransparency = 0.65
+            }):Play()
+            t11.value2:Create(coronaMid, TweenInfo.new(2.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
+                Size = UDim2.fromOffset(72, 72), BackgroundTransparency = 0.55
+            }):Play()
+            t11.value2:Create(coronaInner, TweenInfo.new(2.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
+                Size = UDim2.fromOffset(62, 62), BackgroundTransparency = 0.7
+            }):Play()
+            task.wait(2.5)
+        end
+    end)
+
+    -- ══ Gradient rotation animation ══
+    task.spawn(function()
+        while lGrad.Parent do
+            t11.value2:Create(lGrad, TweenInfo.new(3, Enum.EasingStyle.Linear), {Rotation = 360}):Play()
+            task.wait(3)
+            lGrad.Rotation = 0
+        end
+    end)
+
+    -- ══ Drag logic ══
     t11.value34.InputBegan:Connect(function(input)
         local v639 = input.UserInputType == Enum.UserInputType.MouseButton1
         if not v639 then v639 = input.UserInputType == Enum.UserInputType.Touch end
@@ -1338,23 +1417,36 @@ task.spawn(function(...)
         end
     end)
 
+    -- ══ Hover: intensify corona ══
     ImageButton.MouseEnter:Connect(function()
-        t11.value2:Create(t11.value35, TweenInfo.new(0.2), { Color = Color3.fromHex("#FFD700") }):Play()
-        t11.value2:Create(t11.value34, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Size = UDim2.fromOffset(54, 54) }):Play()
-        t11.value2:Create(launcherGlow, TweenInfo.new(0.2), { Transparency = 0.3 }):Play()
+        t11.value2:Create(launcherStrokeGrad, TweenInfo.new(0.25), { Thickness = 4, Transparency = 0 }):Play()
+        t11.value2:Create(t11.value34, TweenInfo.new(0.2, Enum.EasingStyle.Back, Enum.EasingDirection.Out), { Size = UDim2.fromOffset(58, 58) }):Play()
+        t11.value2:Create(coronaOuter, TweenInfo.new(0.3), { BackgroundTransparency = 0.35 }):Play()
+        t11.value2:Create(coronaMid, TweenInfo.new(0.3), { BackgroundTransparency = 0.25 }):Play()
+        t11.value2:Create(coronaInner, TweenInfo.new(0.3), { BackgroundTransparency = 0.4 }):Play()
     end)
 
     ImageButton.MouseLeave:Connect(function()
-        t11.value2:Create(t11.value35, TweenInfo.new(0.2), { Color = Color3.fromHex("#FF6B35") }):Play()
-        t11.value2:Create(t11.value34, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Size = UDim2.fromOffset(50, 50) }):Play()
-        t11.value2:Create(launcherGlow, TweenInfo.new(0.2), { Transparency = 0.65 }):Play()
+        t11.value2:Create(launcherStrokeGrad, TweenInfo.new(0.25), { Thickness = 2.5, Transparency = 0.05 }):Play()
+        t11.value2:Create(t11.value34, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Size = UDim2.fromOffset(52, 52) }):Play()
+        t11.value2:Create(coronaOuter, TweenInfo.new(0.3), { BackgroundTransparency = 0.65 }):Play()
+        t11.value2:Create(coronaMid, TweenInfo.new(0.3), { BackgroundTransparency = 0.55 }):Play()
+        t11.value2:Create(coronaInner, TweenInfo.new(0.3), { BackgroundTransparency = 0.7 }):Play()
     end)
 
+    -- ══ Click: flash + toggle ══
     ImageButton.MouseButton1Click:Connect(function()
-        t11.value2:Create(t11.value34, TweenInfo.new(0.06, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Size = UDim2.fromOffset(44, 44) }):Play()
+        -- Flash effect
+        t11.value2:Create(coronaInner, TweenInfo.new(0.05), { BackgroundTransparency = 0.1, BackgroundColor3 = Color3.fromHex("#FFFFFF") }):Play()
+        t11.value2:Create(t11.value34, TweenInfo.new(0.06, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Size = UDim2.fromOffset(46, 46) }):Play()
         task.delay(0.06, function()
             if t11.value34 and t11.value34.Parent then
-                t11.value2:Create(t11.value34, TweenInfo.new(0.1, Enum.EasingStyle.Back, Enum.EasingDirection.Out), { Size = UDim2.fromOffset(50, 50) }):Play()
+                t11.value2:Create(t11.value34, TweenInfo.new(0.12, Enum.EasingStyle.Back, Enum.EasingDirection.Out), { Size = UDim2.fromOffset(52, 52) }):Play()
+                task.delay(0.3, function()
+                    if coronaInner and coronaInner.Parent then
+                        t11.value2:Create(coronaInner, TweenInfo.new(0.3), { BackgroundTransparency = 0.7, BackgroundColor3 = Color3.fromHex("#FFD700") }):Play()
+                    end
+                end)
             end
         end)
 
@@ -1374,64 +1466,258 @@ task.spawn(function(...)
         end
     end)
 
-    -- ═══════════════════════════════════════════════════════════
-    -- BACKGROUND IMAGE INSIDE WINDUI WINDOW (not full-screen)
-    -- ═══════════════════════════════════════════════════════════
+    -- ═══════════════════════════════════════════════════════════════════════
+    -- 🌑 ECLIPSE BACKGROUND INSIDE WINDUI WINDOW — VIGNETTE + ORBES + BORDE ANIMADO
+    -- ═══════════════════════════════════════════════════════════════════════
 
     task.spawn(function()
-        task.wait(3)
-        pcall(function()
-            local windowGui = t11.value33()
-            if not windowGui then return end
+        -- Wait for WindUI to fully load with retry
+        local windowGui = nil
+        for i = 1, 30 do
+            task.wait(0.5)
+            windowGui = t11.value33()
+            if windowGui then break end
+        end
+        if not windowGui then warn("[Eclipse] WindUI not found for background injection") return end
 
-            -- Find the main window frame
-            local mainWindow = windowGui:FindFirstChild("Main")
-            if not mainWindow then
-                for _, child in ipairs(windowGui:GetChildren()) do
-                    if child:IsA("Frame") or child:IsA("CanvasGroup") then
-                        mainWindow = child
-                        break
-                    end
+        -- Find main window frame
+        local mainWindow = windowGui:FindFirstChild("Main")
+        if not mainWindow then
+            task.wait(1)
+            mainWindow = windowGui:FindFirstChild("Main")
+        end
+        if not mainWindow then
+            for _, child in ipairs(windowGui:GetChildren()) do
+                if child:IsA("Frame") or child:IsA("CanvasGroup") then
+                    mainWindow = child
+                    break
                 end
             end
-            if not mainWindow then return end
+        end
+        if not mainWindow then warn("[Eclipse] Main window frame not found") return end
 
-            -- Make the window's own background transparent so our image shows
-            mainWindow.BackgroundTransparency = 1
+        -- Ensure rounded corners
+        if not mainWindow:FindFirstChildOfClass("UICorner") then
+            local c = Instance.new("UICorner")
+            c.CornerRadius = UDim.new(0, 12)
+            c.Parent = mainWindow
+        end
 
-            -- Background image inside the window
-            local bgImage = Instance.new("ImageLabel")
-            bgImage.Name = "EclipseBG"
-            bgImage.Size = UDim2.fromScale(1, 1)
-            bgImage.Position = UDim2.fromScale(0, 0)
-            bgImage.BackgroundTransparency = 1
-            bgImage.Image = "rbxassetid://112002576136361"
-            bgImage.ScaleType = Enum.ScaleType.Crop
-            bgImage.ZIndex = 0
-            bgImage.BorderSizePixel = 0
-            bgImage.Active = false
-            bgImage.Parent = mainWindow
+        -- ══ Layer 1: Eclipse background image ══
+        mainWindow.BackgroundTransparency = 1
 
-            -- Dark overlay for text readability
-            local overlay = Instance.new("Frame")
-            overlay.Name = "EclipseOverlay"
-            overlay.Size = UDim2.fromScale(1, 1)
-            overlay.Position = UDim2.fromScale(0, 0)
-            overlay.BackgroundColor3 = Color3.fromRGB(13, 8, 0)
-            overlay.BackgroundTransparency = 0.3
-            overlay.BorderSizePixel = 0
-            overlay.ZIndex = 0
-            overlay.Active = false
-            overlay.Parent = mainWindow
+        local bgImage = Instance.new("ImageLabel")
+        bgImage.Name = "EclipseBG"
+        bgImage.Size = UDim2.fromScale(1, 1)
+        bgImage.Position = UDim2.fromScale(0, 0)
+        bgImage.BackgroundTransparency = 1
+        bgImage.Image = "rbxassetid://112002576136361"
+        bgImage.ScaleType = Enum.ScaleType.Crop
+        bgImage.ZIndex = 0
+        bgImage.BorderSizePixel = 0
+        bgImage.Active = false
+        bgImage.Parent = mainWindow
+
+        -- ══ Slow Ken Burns zoom on the image ══
+        task.spawn(function()
+            while bgImage.Parent do
+                t11.value2:Create(bgImage, TweenInfo.new(10, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
+                    Size = UDim2.new(1.08, 0, 1.08, 0),
+                    Position = UDim2.new(-0.04, 0, -0.04, 0)
+                }):Play()
+                task.wait(10)
+                t11.value2:Create(bgImage, TweenInfo.new(10, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
+                    Size = UDim2.fromScale(1, 1),
+                    Position = UDim2.fromScale(0, 0)
+                }):Play()
+                task.wait(10)
+            end
+        end)
+
+        -- ══ Layer 2: Vertical vignette (darkens top/bottom edges) ══
+        local vignetteV = Instance.new("Frame")
+        vignetteV.Name = "VignetteVertical"
+        vignetteV.Size = UDim2.fromScale(1, 1)
+        vignetteV.Position = UDim2.fromScale(0, 0)
+        vignetteV.BackgroundColor3 = Color3.fromHex("#060300")
+        vignetteV.BackgroundTransparency = 0.2
+        vignetteV.BorderSizePixel = 0
+        vignetteV.ZIndex = 1
+        vignetteV.Active = false
+        vignetteV.Parent = mainWindow
+
+        local vGrad = Instance.new("UIGradient")
+        vGrad.Transparency = NumberSequence.new({
+            NumberSequenceKeypoint.new(0, 0),
+            NumberSequenceKeypoint.new(0.25, 0.75),
+            NumberSequenceKeypoint.new(0.5, 0.95),
+            NumberSequenceKeypoint.new(0.75, 0.75),
+            NumberSequenceKeypoint.new(1, 0)
+        })
+        vGrad.Parent = vignetteV
+
+        -- ══ Layer 3: Horizontal vignette (darkens left/right edges) ══
+        local vignetteH = Instance.new("Frame")
+        vignetteH.Name = "VignetteHorizontal"
+        vignetteH.Size = UDim2.fromScale(1, 1)
+        vignetteH.Position = UDim2.fromScale(0, 0)
+        vignetteH.BackgroundColor3 = Color3.fromHex("#060300")
+        vignetteH.BackgroundTransparency = 0.2
+        vignetteH.BorderSizePixel = 0
+        vignetteH.ZIndex = 1
+        vignetteH.Active = false
+        vignetteH.Parent = mainWindow
+
+        local hGrad = Instance.new("UIGradient")
+        hGrad.Rotation = 90
+        hGrad.Transparency = NumberSequence.new({
+            NumberSequenceKeypoint.new(0, 0),
+            NumberSequenceKeypoint.new(0.25, 0.75),
+            NumberSequenceKeypoint.new(0.5, 0.95),
+            NumberSequenceKeypoint.new(0.75, 0.75),
+            NumberSequenceKeypoint.new(1, 0)
+        })
+        hGrad.Parent = vignetteH
+
+        -- ══ Layer 4: Soft center glow (eclipse corona glow) ══
+        local centerGlow = Instance.new("Frame")
+        centerGlow.Name = "CenterGlow"
+        centerGlow.Size = UDim2.fromScale(0.5, 0.5)
+        centerGlow.Position = UDim2.fromScale(0.25, 0.25)
+        centerGlow.BackgroundColor3 = Color3.fromHex("#FF6B35")
+        centerGlow.BackgroundTransparency = 0.85
+        centerGlow.BorderSizePixel = 0
+        centerGlow.ZIndex = 1
+        centerGlow.Active = false
+        centerGlow.Parent = mainWindow
+
+        local centerGlowCorner = Instance.new("UICorner")
+        centerGlowCorner.CornerRadius = UDim.new(1, 0)
+        centerGlowCorner.Parent = centerGlow
+
+        -- Pulse the center glow
+        task.spawn(function()
+            while centerGlow.Parent do
+                t11.value2:Create(centerGlow, TweenInfo.new(4, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
+                    BackgroundTransparency = 0.8, Size = UDim2.fromScale(0.55, 0.55), Position = UDim2.fromScale(0.225, 0.225)
+                }):Play()
+                task.wait(4)
+                t11.value2:Create(centerGlow, TweenInfo.new(4, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
+                    BackgroundTransparency = 0.88, Size = UDim2.fromScale(0.5, 0.5), Position = UDim2.fromScale(0.25, 0.25)
+                }):Play()
+                task.wait(4)
+            end
+        end)
+
+        -- ══ Layer 5: Floating luminous orbs ══
+        local function createOrb(orbColor, orbSize, startPos, endPos, duration)
+            local orb = Instance.new("Frame")
+            orb.Name = "EclipseOrb"
+            orb.Size = UDim2.fromOffset(orbSize, orbSize)
+            orb.Position = startPos
+            orb.BackgroundColor3 = orbColor
+            orb.BackgroundTransparency = 0.78
+            orb.BorderSizePixel = 0
+            orb.ZIndex = 2
+            orb.Active = false
+            orb.Parent = mainWindow
+
+            local oCorner = Instance.new("UICorner")
+            oCorner.CornerRadius = UDim.new(1, 0)
+            oCorner.Parent = orb
+
+            local oGlow = Instance.new("UIStroke")
+            oGlow.Color = orbColor
+            oGlow.Thickness = 3
+            oGlow.Transparency = 0.4
+            oGlow.Parent = orb
+
+            task.spawn(function()
+                while orb.Parent do
+                    t11.value2:Create(orb, TweenInfo.new(duration, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
+                        Position = endPos, BackgroundTransparency = 0.85
+                    }):Play()
+                    t11.value2:Create(oGlow, TweenInfo.new(duration, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
+                        Transparency = 0.6
+                    }):Play()
+                    task.wait(duration)
+                    t11.value2:Create(orb, TweenInfo.new(duration, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
+                        Position = startPos, BackgroundTransparency = 0.72
+                    }):Play()
+                    t11.value2:Create(oGlow, TweenInfo.new(duration, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
+                        Transparency = 0.3
+                    }):Play()
+                    task.wait(duration)
+                end
+            end)
+        end
+
+        createOrb(Color3.fromHex("#FF6B35"), 28, UDim2.new(0.12, 0, 0.18, 0), UDim2.new(0.35, 0, 0.55, 0), 11)
+        createOrb(Color3.fromHex("#FFD700"), 18, UDim2.new(0.72, 0, 0.52, 0), UDim2.new(0.52, 0, 0.22, 0), 9)
+        createOrb(Color3.fromHex("#FF8C42"), 22, UDim2.new(0.48, 0, 0.72, 0), UDim2.new(0.18, 0, 0.42, 0), 13)
+        createOrb(Color3.fromHex("#FF4500"), 14, UDim2.new(0.82, 0, 0.28, 0), UDim2.new(0.62, 0, 0.68, 0), 8)
+
+        -- ══ Layer 6: Animated gradient border on window ══
+        local existingStroke = mainWindow:FindFirstChildOfClass("UIStroke")
+        if existingStroke then
+            existingStroke.Thickness = 2
+            existingStroke.Color = Color3.fromHex("#FFFFFF")
+            existingStroke.Transparency = 0
+            existingStroke.Parent = nil -- remove old
+        end
+
+        local winStroke = Instance.new("UIStroke")
+        winStroke.Color = Color3.fromHex("#FFFFFF")
+        winStroke.Thickness = 2
+        winStroke.Transparency = 0
+        winStroke.Parent = mainWindow
+
+        local winGrad = Instance.new("UIGradient")
+        winGrad.Color = ColorSequence.new({
+            ColorSequenceKeypoint.new(0, Color3.fromHex("#FF4500")),
+            ColorSequenceKeypoint.new(0.2, Color3.fromHex("#FF6B35")),
+            ColorSequenceKeypoint.new(0.4, Color3.fromHex("#FFD700")),
+            ColorSequenceKeypoint.new(0.6, Color3.fromHex("#FFFFFF")),
+            ColorSequenceKeypoint.new(0.8, Color3.fromHex("#FFD700")),
+            ColorSequenceKeypoint.new(1, Color3.fromHex("#FF4500"))
+        })
+        winGrad.Parent = winStroke
+
+        task.spawn(function()
+            while winGrad.Parent do
+                t11.value2:Create(winGrad, TweenInfo.new(5, Enum.EasingStyle.Linear), {Rotation = 360}):Play()
+                task.wait(5)
+                winGrad.Rotation = 0
+            end
+        end)
+
+        -- ══ Layer 7: Subtle outer glow on window ══
+        local winOuterGlow = Instance.new("UIStroke")
+        winOuterGlow.Color = Color3.fromHex("#FF6B35")
+        winOuterGlow.Thickness = 10
+        winOuterGlow.Transparency = 0.85
+        winOuterGlow.Parent = mainWindow
+
+        task.spawn(function()
+            while winOuterGlow.Parent do
+                t11.value2:Create(winOuterGlow, TweenInfo.new(3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
+                    Transparency = 0.7, Thickness = 14
+                }):Play()
+                task.wait(3)
+                t11.value2:Create(winOuterGlow, TweenInfo.new(3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
+                    Transparency = 0.85, Thickness = 10
+                }):Play()
+                task.wait(3)
+            end
         end)
     end)
 
-    -- ═══════════════════════════════════════════════
-    -- PING / FPS DISPLAY (top bar)
-    -- ═══════════════════════════════════════════════
+    -- ═══════════════════════════════════════════════════════════════
+    -- ⚡ PING / FPS DISPLAY — GRADIENTE ANIMADO + GLOW PULSANTE
+    -- ═══════════════════════════════════════════════════════════════
 
     task.spawn(function()
-        task.wait(1)
+        task.wait(1.5)
         local RunService = game:GetService("RunService")
         local playerGui = t11.value5:WaitForChild("PlayerGui")
 
@@ -1445,38 +1731,72 @@ task.spawn(function(...)
 
         local statsFrame = Instance.new("Frame")
         statsFrame.Name = "StatsBar"
-        statsFrame.Size = UDim2.new(0, 240, 0, 30)
-        statsFrame.Position = UDim2.new(0.5, -120, 0, 8)
-        statsFrame.BackgroundColor3 = Color3.fromHex("#0D0800")
-        statsFrame.BackgroundTransparency = 0.1
+        statsFrame.Size = UDim2.new(0, 260, 0, 32)
+        statsFrame.Position = UDim2.new(0.5, -130, 0, 8)
+        statsFrame.BackgroundColor3 = Color3.fromHex("#060300")
+        statsFrame.BackgroundTransparency = 0.05
         statsFrame.BorderSizePixel = 0
         statsFrame.Parent = statsGui
 
-        local corner = Instance.new("UICorner")
-        corner.CornerRadius = UDim.new(0, 10)
-        corner.Parent = statsFrame
+        local sCorner = Instance.new("UICorner")
+        sCorner.CornerRadius = UDim.new(0, 14)
+        sCorner.Parent = statsFrame
 
-        local stroke = Instance.new("UIStroke")
-        stroke.Color = Color3.fromHex("#FF6B35")
-        stroke.Thickness = 1.5
-        stroke.Transparency = 0.15
-        stroke.Parent = statsFrame
+        -- Animated gradient border
+        local sStroke = Instance.new("UIStroke")
+        sStroke.Color = Color3.fromHex("#FFFFFF")
+        sStroke.Thickness = 2
+        sStroke.Transparency = 0
+        sStroke.Parent = statsFrame
 
-        local glowStroke = Instance.new("UIStroke")
-        glowStroke.Color = Color3.fromHex("#FF6B35")
-        glowStroke.Thickness = 5
-        glowStroke.Transparency = 0.75
-        glowStroke.Parent = statsFrame
+        local sGrad = Instance.new("UIGradient")
+        sGrad.Color = ColorSequence.new({
+            ColorSequenceKeypoint.new(0, Color3.fromHex("#FF4500")),
+            ColorSequenceKeypoint.new(0.25, Color3.fromHex("#FFD700")),
+            ColorSequenceKeypoint.new(0.5, Color3.fromHex("#FFFFFF")),
+            ColorSequenceKeypoint.new(0.75, Color3.fromHex("#FFD700")),
+            ColorSequenceKeypoint.new(1, Color3.fromHex("#FF4500"))
+        })
+        sGrad.Parent = sStroke
+
+        -- Rotate gradient
+        task.spawn(function()
+            while sGrad.Parent do
+                t11.value2:Create(sGrad, TweenInfo.new(4, Enum.EasingStyle.Linear), {Rotation = 360}):Play()
+                task.wait(4)
+                sGrad.Rotation = 0
+            end
+        end)
+
+        -- Outer glow pulse
+        local sGlow = Instance.new("UIStroke")
+        sGlow.Color = Color3.fromHex("#FF6B35")
+        sGlow.Thickness = 8
+        sGlow.Transparency = 0.82
+        sGlow.Parent = statsFrame
+
+        task.spawn(function()
+            while sGlow.Parent do
+                t11.value2:Create(sGlow, TweenInfo.new(2.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
+                    Transparency = 0.6, Thickness = 12
+                }):Play()
+                task.wait(2.5)
+                t11.value2:Create(sGlow, TweenInfo.new(2.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
+                    Transparency = 0.82, Thickness = 8
+                }):Play()
+                task.wait(2.5)
+            end
+        end)
 
         local statsLabel = Instance.new("TextLabel")
-        statsLabel.Size = UDim2.new(1, -12, 1, 0)
-        statsLabel.Position = UDim2.new(0, 6, 0, 0)
+        statsLabel.Size = UDim2.new(1, -16, 1, 0)
+        statsLabel.Position = UDim2.new(0, 8, 0, 0)
         statsLabel.BackgroundTransparency = 1
         statsLabel.Font = Enum.Font.GothamBold
-        statsLabel.TextSize = 13
+        statsLabel.TextSize = 14
         statsLabel.TextColor3 = Color3.fromHex("#FFD700")
         statsLabel.TextXAlignment = Enum.TextXAlignment.Center
-        statsLabel.Text = "FPS: --  |  Ping: -- ms"
+        statsLabel.Text = "⚡ FPS: --  |  🏓 Ping: -- ms"
         statsLabel.Parent = statsFrame
 
         local fpsCount = 0
@@ -1491,17 +1811,17 @@ task.spawn(function(...)
                 lastTime = now
                 local ping = 0
                 pcall(function() ping = math.floor(Players.LocalPlayer:GetNetworkPing() * 1000) end)
-                statsLabel.Text = string.format("FPS: %d  |  Ping: %d ms", fps, ping)
+                statsLabel.Text = string.format("⚡ FPS: %d  |  🏓 Ping: %d ms", fps, ping)
                 if fps >= 50 and ping <= 80 then
                     statsLabel.TextColor3 = Color3.fromHex("#FFD700")
                 elseif fps >= 30 and ping <= 150 then
                     statsLabel.TextColor3 = Color3.fromHex("#FFB380")
                 else
-                    statsLabel.TextColor3 = Color3.fromHex("#FF6B35")
+                    statsLabel.TextColor3 = Color3.fromHex("#FF4500")
                 end
             end
         end)
     end)
 
-    print("[Eclipse] Eclipse Steal a Egg Script Loaded Successfully!")
+    print("[Eclipse Ultra] Eclipse Steal a Egg Script Loaded Successfully!")
 end)

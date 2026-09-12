@@ -48,15 +48,9 @@ task.spawn(function(...)
     t10.value2 = "pcall"
     t11.value9 = nil
     t11.value10 = nil
-    pcall(function()
-        t11.value6 = require(t11.value3.Client.EggState)
-    end)
-    pcall(function()
-        t11.value7 = require(t11.value3.Client.PlotState)
-    end)
-    pcall(function()
-        t11.value8 = require(t11.value3.Shared.Util.AreaEggSlotIdentity)
-    end)
+    pcall(function() t11.value6 = require(t11.value3.Client.EggState) end)
+    pcall(function() t11.value7 = require(t11.value3.Client.PlotState) end)
+    pcall(function() t11.value8 = require(t11.value3.Shared.Util.AreaEggSlotIdentity) end)
     pcall(function()
         local Assets = require(t11.value3.Data.Assets)
         t11.value9 = Assets and Assets.Directory
@@ -69,13 +63,9 @@ task.spawn(function(...)
 
     local function v211(p20, p21, p22)
         local _getgc = getgc
-        if _getgc then
-            _getgc = hookfunction
-            if _getgc then
-                _getgc = newcclosure
-                if _getgc then
-                    _getgc = islclosure
-                end
+        if _getgc then _getgc = hookfunction
+            if _getgc then _getgc = newcclosure
+                if _getgc then _getgc = islclosure end
             end
         end
         if not _getgc then return end
@@ -232,7 +222,7 @@ task.spawn(function(...)
     t11.value13 = _loadstring(v3(t10.value10))()
     local value13 = t11.value13
 
-    -- ═══ THEME (Eclipse Fire - Orange/Dark) ═══
+    -- ═══ THEME (Eclipse Fire) ═══
     t10.value16 = Color3.fromHex("#FF6B35")
     local color3 = Color3.fromHex("#0D0800")
     t10.value21 = "\226\149\241\192{\140\163"
@@ -292,7 +282,7 @@ task.spawn(function(...)
     t10.value2 = value13_2.CreateWindow
     local v231 = new(color3_4, fromHex2("#FFD700"))
 
-    -- ═══ WINDOW CREATION ═══
+    -- ═══ WINDOW ═══
     t10.value2 = t10.value2(value13_2, {
         Title = "Eclipse Steal a Egg",
         Icon = "rbxassetid://104937666038724",
@@ -1103,7 +1093,7 @@ task.spawn(function(...)
     if t10.value2.Character then t11.value31(t11.value5.Character) end
 
     -- ═══════════════════════════════════════
-    -- TABS & UI ELEMENTS (all logic preserved)
+    -- TABS & UI ELEMENTS
     -- ═══════════════════════════════════════
 
     local value14 = t11.value14
@@ -1154,11 +1144,15 @@ task.spawn(function(...)
     v277:Button({ Title = "Teleport to My Base", Desc = "Teleports you to your plot spawn point",
         Callback = function()
             local value7 = t11.value7
-            local g611, g613, ok, result, result8
+            local g611, ok, result, result8
             if value7 then value7 = t11.value7.FindRespawnCFrame end
             if value7 then local ok8 ok8, result8 = pcall(t11.value7.FindRespawnCFrame, t11.value5) if ok8 and result8 then g611 = true end end
-            if not g611 then local value7_2 = t11.value7 if value7_2 then value7_2 = t11.value7.ResolvePlot end
-                if value7_2 then ok, result = pcall(t11.value7.ResolvePlot) if ok and result and result.RespawnPointCFrame then v248(result.RespawnPointCFrame) return end end
+            if not g611 then
+                local value7_2 = t11.value7
+                if value7_2 then value7_2 = t11.value7.ResolvePlot end
+                if value7_2 then ok, result = pcall(t11.value7.ResolvePlot)
+                    if ok and result and result.RespawnPointCFrame then v248(result.RespawnPointCFrame) return end
+                end
             end
             if g611 and result8 then v248(result8) end
         end })
@@ -1233,7 +1227,7 @@ task.spawn(function(...)
     t11.value13:Notify({ Title = "Eclipse Loaded", Content = "Press Right Shift or use the floating button to toggle the menu.", Icon = "rbxassetid://104937666038724", Duration = 5 })
 
     -- ═══════════════════════════════════════════════
-    -- WINDUI FALLBACK FINDER (FIXED - iterates all children)
+    -- WINDUI WINDOW FINDER (fixed - iterates all children)
     -- ═══════════════════════════════════════════════
 
     t11.value32 = nil
@@ -1247,20 +1241,12 @@ task.spawn(function(...)
             v621 = game:GetService("CoreGui")
             if not v621 then v621 = t11.value5:WaitForChild("PlayerGui") end
         end
-        -- FIX: iterate ALL children instead of only the first one
         for _, child in ipairs(v621:GetChildren()) do
             if child:IsA("ScreenGui") then
-                if child.Name == "WindUI" then
-                    t11.value32 = child
-                    return child
-                end
-                if child:FindFirstChild("Main") or child:FindFirstChild("WindUI") then
-                    t11.value32 = child
-                    return child
-                end
+                if child.Name == "WindUI" then t11.value32 = child return child end
+                if child:FindFirstChild("Main") or child:FindFirstChild("WindUI") then t11.value32 = child return child end
             end
         end
-        -- Fallback: search PlayerGui
         local PlayerGui = t11.value5:FindFirstChildOfClass("PlayerGui")
         if PlayerGui then
             for _, v in ipairs(PlayerGui:GetChildren()) do
@@ -1274,7 +1260,7 @@ task.spawn(function(...)
     end
 
     -- ═══════════════════════════════════════════════
-    -- LAUNCHER BUTTON (Eclipse visual style)
+    -- LAUNCHER BUTTON (Eclipse style)
     -- ═══════════════════════════════════════════════
 
     local launcherParent = gethui and gethui()
@@ -1352,7 +1338,6 @@ task.spawn(function(...)
         end
     end)
 
-    -- Hover: glow + scale
     ImageButton.MouseEnter:Connect(function()
         t11.value2:Create(t11.value35, TweenInfo.new(0.2), { Color = Color3.fromHex("#FFD700") }):Play()
         t11.value2:Create(t11.value34, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Size = UDim2.fromOffset(54, 54) }):Play()
@@ -1365,7 +1350,6 @@ task.spawn(function(...)
         t11.value2:Create(launcherGlow, TweenInfo.new(0.2), { Transparency = 0.65 }):Play()
     end)
 
-    -- Click: press animation + toggle
     ImageButton.MouseButton1Click:Connect(function()
         t11.value2:Create(t11.value34, TweenInfo.new(0.06, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Size = UDim2.fromOffset(44, 44) }):Play()
         task.delay(0.06, function()
@@ -1390,43 +1374,60 @@ task.spawn(function(...)
         end
     end)
 
-    -- ═══════════════════════════════════════════════
-    -- BACKGROUND IMAGE (in PlayerGui to avoid WindUI conflict)
-    -- ═══════════════════════════════════════════════
+    -- ═══════════════════════════════════════════════════════════
+    -- BACKGROUND IMAGE INSIDE WINDUI WINDOW (not full-screen)
+    -- ═══════════════════════════════════════════════════════════
 
     task.spawn(function()
-        local playerGui = t11.value5:WaitForChild("PlayerGui")
-        local bgGui = Instance.new("ScreenGui")
-        bgGui.Name = "EclipseBackground"
-        bgGui.ResetOnSpawn = false
-        bgGui.DisplayOrder = -10
-        bgGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-        bgGui.IgnoreGuiInset = true
-        bgGui.Parent = playerGui
+        task.wait(3)
+        pcall(function()
+            local windowGui = t11.value33()
+            if not windowGui then return end
 
-        local bgImage = Instance.new("ImageLabel")
-        bgImage.Name = "BGImage"
-        bgImage.Size = UDim2.fromScale(1, 1)
-        bgImage.Position = UDim2.fromScale(0, 0)
-        bgImage.BackgroundTransparency = 1
-        bgImage.Image = "rbxassetid://112002576136361"
-        bgImage.ScaleType = Enum.ScaleType.Crop
-        bgImage.ZIndex = 1
-        bgImage.Parent = bgGui
+            -- Find the main window frame
+            local mainWindow = windowGui:FindFirstChild("Main")
+            if not mainWindow then
+                for _, child in ipairs(windowGui:GetChildren()) do
+                    if child:IsA("Frame") or child:IsA("CanvasGroup") then
+                        mainWindow = child
+                        break
+                    end
+                end
+            end
+            if not mainWindow then return end
 
-        local overlay = Instance.new("Frame")
-        overlay.Name = "DarkOverlay"
-        overlay.Size = UDim2.fromScale(1, 1)
-        overlay.Position = UDim2.fromScale(0, 0)
-        overlay.BackgroundColor3 = Color3.fromRGB(8, 3, 0)
-        overlay.BackgroundTransparency = 0.45
-        overlay.BorderSizePixel = 0
-        overlay.ZIndex = 2
-        overlay.Parent = bgGui
+            -- Make the window's own background transparent so our image shows
+            mainWindow.BackgroundTransparency = 1
+
+            -- Background image inside the window
+            local bgImage = Instance.new("ImageLabel")
+            bgImage.Name = "EclipseBG"
+            bgImage.Size = UDim2.fromScale(1, 1)
+            bgImage.Position = UDim2.fromScale(0, 0)
+            bgImage.BackgroundTransparency = 1
+            bgImage.Image = "rbxassetid://112002576136361"
+            bgImage.ScaleType = Enum.ScaleType.Crop
+            bgImage.ZIndex = 0
+            bgImage.BorderSizePixel = 0
+            bgImage.Active = false
+            bgImage.Parent = mainWindow
+
+            -- Dark overlay for text readability
+            local overlay = Instance.new("Frame")
+            overlay.Name = "EclipseOverlay"
+            overlay.Size = UDim2.fromScale(1, 1)
+            overlay.Position = UDim2.fromScale(0, 0)
+            overlay.BackgroundColor3 = Color3.fromRGB(13, 8, 0)
+            overlay.BackgroundTransparency = 0.3
+            overlay.BorderSizePixel = 0
+            overlay.ZIndex = 0
+            overlay.Active = false
+            overlay.Parent = mainWindow
+        end)
     end)
 
     -- ═══════════════════════════════════════════════
-    -- PING / FPS DISPLAY (reliable method, in PlayerGui)
+    -- PING / FPS DISPLAY (top bar)
     -- ═══════════════════════════════════════════════
 
     task.spawn(function()

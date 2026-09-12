@@ -11,7 +11,8 @@ task.spawn(function(...)
     t11.value1 = game:GetService("RunService")
     t10.value3 = game:GetService("UserInputService")
     local ProximityPromptService = game:GetService("ProximityPromptService")
-    t11.value2 = game:GetService("TweenService")
+    local _game = game
+    t11.value2 = _game:GetService("TweenService")
     t11.value3 = game:GetService("ReplicatedStorage")
     t11.value4 = game:GetService("HttpService")
     t11.value5 = Players.LocalPlayer
@@ -36,7 +37,11 @@ task.spawn(function(...)
                         local ok2, c = pcall(debug.getconstants, v)
                         if ok2 and c then
                             local all = true
-                            for _, n in ipairs(consts) do local f = false for _, val in pairs(c) do if val == n then f = true break end end if not f then all = false break end end
+                            for _, n in ipairs(consts) do
+                                local f = false
+                                for _, val in pairs(c) do if val == n then f = true break end end
+                                if not f then all = false break end
+                            end
                             if all then pcall(hookfunction, v, newcclosure(fn)) end
                         end
                     end
@@ -61,7 +66,8 @@ task.spawn(function(...)
                 if ok and r and r.source == "=ReplicatedFirst.UGI.ContentCatalog.Runtime" then
                     for _, uv in pairs(debug.getupvalues(v)) do
                         if type(uv) == "table" and rawget(uv, "Evidence") and rawget(uv, "ThreatLevel") then
-                            t11.value11 = uv return t11.value11
+                            t11.value11 = uv
+                            return t11.value11
                         end
                     end
                 end
@@ -73,44 +79,64 @@ task.spawn(function(...)
     t11.value1.Heartbeat:Connect(function()
         local v = v212()
         if v then
-            v.ThreatLevel = "Trusted" v.ValidationLocked = false v.CorrectionContext = nil
-            v.FirstSuspiciousAt = nil v.MovementMode = "Grounded" v.IsSupportedNow = true v.TelemetryRepeatCount = 0
-            if v.Evidence then v.Evidence.Speed = 0 v.Evidence.Flight = 0 v.Evidence.Teleport = 0 end
+            v.ThreatLevel = "Trusted"
+            v.ValidationLocked = false
+            v.CorrectionContext = nil
+            v.FirstSuspiciousAt = nil
+            v.MovementMode = "Grounded"
+            v.IsSupportedNow = true
+            v.TelemetryRepeatCount = 0
+            if v.Evidence then
+                v.Evidence.Speed = 0
+                v.Evidence.Flight = 0
+                v.Evidence.Teleport = 0
+            end
         end
     end)
 
     t11.value5.CharacterAdded:Connect(function() end)
 
-    if getgc then pcall(function()
-        for _, v in ipairs(getgc(false)) do
-            if type(v) == "function" and islclosure(v) then
-                local ok, r = pcall(debug.getinfo, v)
-                if ok and r then local s = r.source or ""
-                    if s:find("RuntimePulse") or s:find("Runtime_") then
-                        local ok2, c = pcall(debug.getconstants, v)
-                        if ok2 and c then local t = {}
-                            for _, val in ipairs(c) do if type(val) == "string" and #val > 1 then t[val] = true end end
-                            if t.GetChildren and not t.challengeId then pcall(hookfunction, v, newcclosure(function() end)) end
+    if getgc then
+        pcall(function()
+            for _, v in ipairs(getgc(false)) do
+                if type(v) == "function" and islclosure(v) then
+                    local ok, r = pcall(debug.getinfo, v)
+                    if ok and r then
+                        local s = r.source or ""
+                        if s:find("RuntimePulse") or s:find("Runtime_") then
+                            local ok2, c = pcall(debug.getconstants, v)
+                            if ok2 and c then
+                                local t = {}
+                                for _, val in ipairs(c) do
+                                    if type(val) == "string" and #val > 1 then t[val] = true end
+                                end
+                                if t.GetChildren and not t.challengeId then
+                                    pcall(hookfunction, v, newcclosure(function() end))
+                                end
+                            end
                         end
                     end
                 end
             end
-        end
-    end) end
+        end)
+    end
 
     function t11.value12()
         local c = t11.value5.Character
-        if c then local a = c:FindFirstChild("AntiCollisionHighSeedPushBack") if a then a:Destroy() end end
+        if c then
+            local a = c:FindFirstChild("AntiCollisionHighSeedPushBack")
+            if a then a:Destroy() end
+        end
     end
     t11.value12()
 
     -- ═══════════════════════════════
-    -- WINDUI + THEME + WINDOW
+    -- WINDUI + THEME
     -- ═══════════════════════════════
     t11.value13 = loadstring(game:HttpGet("https://raw.githubusercontent.com/Footagesus/WindUI/main/dist/main.lua"))()
 
     t11.value13:AddTheme({
-        Name = "EclipseV3",
+        Name = "EclipseV4",
         Accent = Color3.fromHex("#FF6B35"),
         Background = Color3.fromHex("#060300"),
         Outline = Color3.fromHex("#FF4500"),
@@ -127,7 +153,7 @@ task.spawn(function(...)
         Author = "Eclipse OG Finder",
         Folder = "STEAL_AN_EGG_CONFIG",
         Size = UDim2.fromOffset(380, 520),
-        Theme = "EclipseV3",
+        Theme = "EclipseV4",
         Transparent = true,
         ToggleKey = Enum.KeyCode.RightShift,
         OpenButton = {
@@ -155,7 +181,9 @@ task.spawn(function(...)
         local sa = t11.value15.StealAreas
         if not sa then return true end
         if type(sa) == "string" then return sa == "All" or sa == area end
-        if type(sa) == "table" then for _, v in pairs(sa) do if v == "All" or v == area then return true end end end
+        if type(sa) == "table" then
+            for _, v in pairs(sa) do if v == "All" or v == area then return true end end
+        end
         return false
     end
 
@@ -164,10 +192,11 @@ task.spawn(function(...)
     -- ═══════════════════════════════
     t11.value16 = {Forest=1,Lake=2,Desert=3,Jungle=4,Snow=5,Volcano=6,["Abyss Ocean"]=7,Prehistoric=8,Cosmic=9,["Cherry Blossom"]=10,["Titan Temple"]=11}
     t11.value17 = {
-        Common=Color3.fromRGB(160,160,160),Uncommon=Color3.fromRGB(80,220,100),Rare=Color3.fromRGB(60,160,255),
-        SuperRare=Color3.fromRGB(120,140,255),Epic=Color3.fromRGB(180,70,255),Legendary=Color3.fromRGB(255,170,20),
-        Mythic=Color3.fromRGB(255,45,100),Cosmic=Color3.fromRGB(80,255,230),Divine=Color3.fromRGB(255,220,80),
-        Secret=Color3.fromRGB(160,80,255),Eternal=Color3.fromRGB(255,30,240),Prismatic=Color3.fromRGB(255,100,200),Rainbow=Color3.fromRGB(255,80,200)
+        Common=Color3.fromRGB(160,160,160), Uncommon=Color3.fromRGB(80,220,100), Rare=Color3.fromRGB(60,160,255),
+        SuperRare=Color3.fromRGB(120,140,255), Epic=Color3.fromRGB(180,70,255), Legendary=Color3.fromRGB(255,170,20),
+        Mythic=Color3.fromRGB(255,45,100), Cosmic=Color3.fromRGB(80,255,230), Divine=Color3.fromRGB(255,220,80),
+        Secret=Color3.fromRGB(160,80,255), Eternal=Color3.fromRGB(255,30,240), Prismatic=Color3.fromRGB(255,100,200),
+        Rainbow=Color3.fromRGB(255,80,200)
     }
 
     function t11.value18(n)
@@ -184,7 +213,7 @@ task.spawn(function(...)
         local cat, area = p.AssetCategory or "Unknown", p.AreaId or "Zone"
         local key = cat.."_"..area
         if t11.value19[key] then return t11.value19[key] end
-        local r = {displayName=cat,eggName=cat.." Egg",rarityName="Common",rarityColor=Color3.fromRGB(180,180,180),cps=0,cpsFormatted="0/s",areaTier=t11.value16[area] or 0,score=0}
+        local r = {displayName=cat, eggName=cat.." Egg", rarityName="Common", rarityColor=Color3.fromRGB(180,180,180), cps=0, cpsFormatted="0/s", areaTier=t11.value16[area] or 0, score=0}
         if t11.value9 and t11.value9[cat] then
             local d = t11.value9[cat]
             if d.DisplayName then r.displayName = d.DisplayName end
@@ -197,99 +226,240 @@ task.spawn(function(...)
                 elseif t11.value17[rn] then r.rarityColor = t11.value17[rn] end
             end
         end
-        r.score = r.cps t11.value19[key] = r return r
+        r.score = r.cps
+        t11.value19[key] = r
+        return r
     end
 
     -- ═══════════════════════════════
     -- CHARACTER UTILS
     -- ═══════════════════════════════
-    local function v245() local c = t11.value5.Character if c then return c:FindFirstChild("HumanoidRootPart") or c.PrimaryPart end return nil end
-    function t11.value21() local c = t11.value5.Character return c and c:FindFirstChildOfClass("Humanoid") end
-    local function v246() local h = t11.value21() return h ~= nil and h.Health > 0 end
-    local function v247() local ok,r = pcall(function() return workspace.__OBJECTS.Areas.WallStartCollision end) if not ok or not r then return false end if r:IsA("BasePart") then return r.Transparency < 0.5 end return false end
-    local function v248(pos) local c = v245() if c then c.CFrame = typeof(pos) == "Vector3" and CFrame.new(pos + Vector3.new(0,3,0)) or pos + Vector3.new(0,3,0) end end
+    local function v245()
+        local c = t11.value5.Character
+        if c then return c:FindFirstChild("HumanoidRootPart") or c.PrimaryPart end
+        return nil
+    end
+
+    function t11.value21()
+        local c = t11.value5.Character
+        return c and c:FindFirstChildOfClass("Humanoid")
+    end
+
+    local function v246()
+        local h = t11.value21()
+        return h ~= nil and h.Health > 0
+    end
+
+    local function v247()
+        local ok, r = pcall(function() return workspace.__OBJECTS.Areas.WallStartCollision end)
+        if not ok or not r then return false end
+        if r:IsA("BasePart") then return r.Transparency < 0.5 end
+        return false
+    end
+
     local function v249(cf)
         if typeof(cf) == "CFrame" then return cf end
-        if typeof(cf) == "string" then local t = {} for n in cf:gmatch("[-%d%.]+") do table.insert(t, tonumber(n)) end
-            if #t >= 12 then return CFrame.new(table.unpack(t)) end if #t >= 3 then return CFrame.new(t[1],t[2],t[3]) end end
+        if typeof(cf) == "string" then
+            local t = {}
+            for n in cf:gmatch("[-%d%.]+") do table.insert(t, tonumber(n)) end
+            if #t >= 12 then return CFrame.new(table.unpack(t)) end
+            if #t >= 3 then return CFrame.new(t[1], t[2], t[3]) end
+        end
         return nil
     end
 
     local function v250()
-        pcall(function() if t11.value6 and t11.value6.DoffEggTool then t11.value6.DoffEggTool() end if t11.value10 and t11.value10.AskDoffTool then t11.value10.AskDoffTool:InvokeServer() end end)
-        pcall(function() local c = t11.value5.Character local h = c and c:FindFirstChildOfClass("Humanoid") if h then h:UnequipTools() end if c then for _,ch in ipairs(c:GetChildren()) do if ch:IsA("Tool") then ch.Parent = t11.value5:FindFirstChildOfClass("Backpack") or ch.Parent end end end end)
+        pcall(function()
+            if t11.value6 and t11.value6.DoffEggTool then t11.value6.DoffEggTool() end
+            if t11.value10 and t11.value10.AskDoffTool then t11.value10.AskDoffTool:InvokeServer() end
+        end)
+        pcall(function()
+            local c = t11.value5.Character
+            local h = c and c:FindFirstChildOfClass("Humanoid")
+            if h then h:UnequipTools() end
+            if c then
+                for _, ch in ipairs(c:GetChildren()) do
+                    if ch:IsA("Tool") then ch.Parent = t11.value5:FindFirstChildOfClass("Backpack") or ch.Parent end
+                end
+            end
+        end)
     end
 
-    function t10.value21(p) if t11.value15.InstantStealPrompt then p.HoldDuration = 0 p.RequiresLineOfSight = false end end
-    ProximityPromptService.PromptShown:Connect(t10.value21)
-    function t10.value21(p) if t11.value15.InstantStealPrompt and fireproximityprompt then fireproximityprompt(p) end end
-    ProximityPromptService.PromptButtonHoldBegan:Connect(t10.value21)
+    -- Proximity prompt hooks
+    ProximityPromptService.PromptShown:Connect(function(p)
+        if t11.value15.InstantStealPrompt then p.HoldDuration = 0 p.RequiresLineOfSight = false end
+    end)
+    ProximityPromptService.PromptButtonHoldBegan:Connect(function(p)
+        if t11.value15.InstantStealPrompt and fireproximityprompt then fireproximityprompt(p) end
+    end)
 
     -- ═══════════════════════════════
     -- ESP SYSTEM
     -- ═══════════════════════════════
     local guiParent = gethui and gethui() or game:GetService("CoreGui") or t11.value5:WaitForChild("PlayerGui")
-    local espFolder = Instance.new("Folder") espFolder.Name = "SAIOPS_ESP" espFolder.Parent = guiParent
-    local espAnchors = Instance.new("Folder") espAnchors.Name = "SAIOPS_ESP_Anchors" espAnchors.Parent = workspace
+    local espFolder = Instance.new("Folder")
+    espFolder.Name = "SAIOPS_ESP"
+    espFolder.Parent = guiParent
+
+    local espAnchors = Instance.new("Folder")
+    espAnchors.Name = "SAIOPS_ESP_Anchors"
+    espAnchors.Parent = workspace
+
     t11.value23 = {}
 
     local function v259()
-        for _,v in pairs(t11.value23) do if v.Billboard and v.Billboard.Parent then v.Billboard:Destroy() end if v.Anchor and v.Anchor.Parent then v.Anchor:Destroy() end end
+        for _, v in pairs(t11.value23) do
+            if v.Billboard and v.Billboard.Parent then v.Billboard:Destroy() end
+            if v.Anchor and v.Anchor.Parent then v.Anchor:Destroy() end
+        end
         t11.value23 = {}
     end
 
     function t11.value24()
-        if not t11.value15.EggESP or not v246() then if next(t11.value23) then v259() end return end
+        if not t11.value15.EggESP or not v246() then
+            if next(t11.value23) then v259() end
+            return
+        end
         local data
-        if t11.value6 and t11.value6.ReadFieldEggs then local ok,r = pcall(t11.value6.ReadFieldEggs) if ok and r then data = r end end
-        if not data and t11.value10 and t11.value10.AskFieldEggSnapshot then local ok,r = pcall(function() return t11.value10.AskFieldEggSnapshot:InvokeServer() end) if ok then data = r end end
-        if not data or not data.Records then if next(t11.value23) then v259() end return end
-        local hrp = v245() local myPos = hrp and hrp.Position or Vector3.zero
+        if t11.value6 and t11.value6.ReadFieldEggs then
+            local ok, r = pcall(t11.value6.ReadFieldEggs)
+            if ok and r then data = r end
+        end
+        if not data and t11.value10 and t11.value10.AskFieldEggSnapshot then
+            local ok, r = pcall(function() return t11.value10.AskFieldEggSnapshot:InvokeServer() end)
+            if ok then data = r end
+        end
+        if not data or not data.Records then
+            if next(t11.value23) then v259() end
+            return
+        end
+        local hrp = v245()
+        local myPos = hrp and hrp.Position or Vector3.zero
         local active = {}
         for _, rec in ipairs(data.Records) do
             local uid = rec.Uid
-            if rec.State == "Slot" and uid then active[uid] = true
+            if rec.State == "Slot" and uid then
+                active[uid] = true
                 local cf = v249(rec.BottomCFrame or rec.BoundsCFrame)
                 if cf then
-                    local meta = t11.value20(rec) local dist = math.floor((cf.Position - myPos).Magnitude)
+                    local meta = t11.value20(rec)
+                    local dist = math.floor((cf.Position - myPos).Magnitude)
                     local entry = t11.value23[uid]
                     if not entry or not entry.Anchor or not entry.Anchor.Parent then
-                        local part = Instance.new("Part") part.Size = Vector3.new(0.1,0.1,0.1) part.Transparency = 1 part.CanCollide = false part.Anchored = true part.CFrame = cf part.Parent = espAnchors
-                        local bb = Instance.new("BillboardGui") bb.AlwaysOnTop = true bb.LightInfluence = 0 bb.Size = UDim2.new(12,0,3.35,0) bb.StudsOffset = Vector3.new(0,3.5,0) bb.MaxDistance = 1200 bb.Adornee = part bb.Parent = part
-                        local f = Instance.new("Frame") f.Size = UDim2.fromScale(1,1) f.BackgroundColor3 = Color3.fromRGB(6,3,0) f.BackgroundTransparency = 0.1 f.BorderSizePixel = 0 f.Parent = bb
-                        Instance.new("UICorner", f).CornerRadius = UDim.new(0,8)
-                        local st = Instance.new("UIStroke") st.Color = meta.rarityColor st.Thickness = 1.5 st.Transparency = 0.05 st.Parent = f
-                        local n1 = Instance.new("TextLabel") n1.Size = UDim2.new(0.62,0,0.32,0) n1.Position = UDim2.new(0.04,0,0.06,0) n1.BackgroundTransparency = 1 n1.Font = Enum.Font.GothamBold n1.TextScaled = true n1.TextColor3 = Color3.fromRGB(255,250,245) n1.TextXAlignment = Enum.TextXAlignment.Left n1.Text = meta.displayName n1.Parent = f
-                        local n2 = Instance.new("TextLabel") n2.Size = UDim2.new(0.32,0,0.28,0) n2.Position = UDim2.new(0.64,0,0.08,0) n2.BackgroundTransparency = 1 n2.Font = Enum.Font.GothamBold n2.TextScaled = true n2.TextColor3 = meta.rarityColor n2.TextXAlignment = Enum.TextXAlignment.Right n2.Text = meta.rarityName n2.Parent = f
-                        local n3 = Instance.new("TextLabel") n3.Size = UDim2.new(0.92,0,0.3,0) n3.Position = UDim2.new(0.04,0,0.38,0) n3.BackgroundTransparency = 1 n3.Font = Enum.Font.GothamBold n3.TextScaled = true n3.TextColor3 = meta.cps > 0 and Color3.fromHex("#FFD700") or Color3.fromRGB(180,180,180) n3.TextXAlignment = Enum.TextXAlignment.Left n3.Text = meta.cpsFormatted n3.Parent = f
-                        local n4 = Instance.new("TextLabel") n4.Name = "Sub" n4.Size = UDim2.new(0.92,0,0.26,0) n4.Position = UDim2.new(0.04,0,0.69,0) n4.BackgroundTransparency = 1 n4.Font = Enum.Font.Gotham n4.TextScaled = true n4.TextColor3 = Color3.fromHex("#D4956A") n4.TextXAlignment = Enum.TextXAlignment.Left n4.Text = (rec.AreaId or "Zone").." ["..dist.."m]" n4.Parent = f
-                        t11.value23[uid] = {Billboard=bb,Anchor=part,Sub=n4,AreaId=rec.AreaId or "Zone"}
+                        local part = Instance.new("Part")
+                        part.Size = Vector3.new(0.1, 0.1, 0.1)
+                        part.Transparency = 1
+                        part.CanCollide = false
+                        part.Anchored = true
+                        part.CFrame = cf
+                        part.Parent = espAnchors
+
+                        local bb = Instance.new("BillboardGui")
+                        bb.AlwaysOnTop = true
+                        bb.LightInfluence = 0
+                        bb.Size = UDim2.new(12, 0, 3.35, 0)
+                        bb.StudsOffset = Vector3.new(0, 3.5, 0)
+                        bb.MaxDistance = 1200
+                        bb.Adornee = part
+                        bb.Parent = part
+
+                        local f = Instance.new("Frame")
+                        f.Size = UDim2.fromScale(1, 1)
+                        f.BackgroundColor3 = Color3.fromRGB(6, 3, 0)
+                        f.BackgroundTransparency = 0.1
+                        f.BorderSizePixel = 0
+                        f.Parent = bb
+                        Instance.new("UICorner", f).CornerRadius = UDim.new(0, 8)
+
+                        local st = Instance.new("UIStroke")
+                        st.Color = meta.rarityColor
+                        st.Thickness = 1.5
+                        st.Transparency = 0.05
+                        st.Parent = f
+
+                        local n1 = Instance.new("TextLabel")
+                        n1.Size = UDim2.new(0.62, 0, 0.32, 0)
+                        n1.Position = UDim2.new(0.04, 0, 0.06, 0)
+                        n1.BackgroundTransparency = 1
+                        n1.Font = Enum.Font.GothamBold
+                        n1.TextScaled = true
+                        n1.TextColor3 = Color3.fromRGB(255, 250, 245)
+                        n1.TextXAlignment = Enum.TextXAlignment.Left
+                        n1.Text = meta.displayName
+                        n1.Parent = f
+
+                        local n2 = Instance.new("TextLabel")
+                        n2.Size = UDim2.new(0.32, 0, 0.28, 0)
+                        n2.Position = UDim2.new(0.64, 0, 0.08, 0)
+                        n2.BackgroundTransparency = 1
+                        n2.Font = Enum.Font.GothamBold
+                        n2.TextScaled = true
+                        n2.TextColor3 = meta.rarityColor
+                        n2.TextXAlignment = Enum.TextXAlignment.Right
+                        n2.Text = meta.rarityName
+                        n2.Parent = f
+
+                        local n3 = Instance.new("TextLabel")
+                        n3.Size = UDim2.new(0.92, 0, 0.3, 0)
+                        n3.Position = UDim2.new(0.04, 0, 0.38, 0)
+                        n3.BackgroundTransparency = 1
+                        n3.Font = Enum.Font.GothamBold
+                        n3.TextScaled = true
+                        n3.TextColor3 = meta.cps > 0 and Color3.fromHex("#FFD700") or Color3.fromRGB(180, 180, 180)
+                        n3.TextXAlignment = Enum.TextXAlignment.Left
+                        n3.Text = meta.cpsFormatted
+                        n3.Parent = f
+
+                        local n4 = Instance.new("TextLabel")
+                        n4.Name = "Sub"
+                        n4.Size = UDim2.new(0.92, 0, 0.26, 0)
+                        n4.Position = UDim2.new(0.04, 0, 0.69, 0)
+                        n4.BackgroundTransparency = 1
+                        n4.Font = Enum.Font.Gotham
+                        n4.TextScaled = true
+                        n4.TextColor3 = Color3.fromHex("#D4956A")
+                        n4.TextXAlignment = Enum.TextXAlignment.Left
+                        n4.Text = (rec.AreaId or "Zone") .. " [" .. dist .. "m]"
+                        n4.Parent = f
+
+                        t11.value23[uid] = {Billboard=bb, Anchor=part, Sub=n4, AreaId=rec.AreaId or "Zone"}
                     else
-                        if entry.Sub then entry.Sub.Text = entry.AreaId.." ["..dist.."m]" end
+                        if entry.Sub then entry.Sub.Text = entry.AreaId .. " [" .. dist .. "m]" end
                         if entry.Anchor then entry.Anchor.CFrame = cf end
                     end
                 end
             end
         end
-        for k,v in pairs(t11.value23) do if not active[k] then if v.Billboard and v.Billboard.Parent then v.Billboard:Destroy() end if v.Anchor and v.Anchor.Parent then v.Anchor:Destroy() end t11.value23[k] = nil end end
+        for k, v in pairs(t11.value23) do
+            if not active[k] then
+                if v.Billboard and v.Billboard.Parent then v.Billboard:Destroy() end
+                if v.Anchor and v.Anchor.Parent then v.Anchor:Destroy() end
+                t11.value23[k] = nil
+            end
+        end
     end
 
     -- ═══════════════════════════════
-    -- MOVEMENT + AUTO-STEAL
+    -- MOVEMENT + AUTO-STEAL LOGIC
     -- ═══════════════════════════════
     t11.value25 = Vector3.new(523.470703125, 71.44905090332, -363.51962280273)
-    t11.value26 = false t11.value27 = false t11.value28 = nil t11.value29 = {}
+    t11.value26 = false
+    t11.value27 = false
+    t11.value28 = nil
+    t11.value29 = {}
 
     local function v260()
         if t11.value28 then pcall(function() t11.value28:Cancel() end) t11.value28 = nil end
         t11.value26 = false
-        local c = v245() local h = t11.value21()
+        local c = v245()
+        local h = t11.value21()
         if c then c.AssemblyLinearVelocity = Vector3.zero c.AssemblyAngularVelocity = Vector3.zero end
         if h and c then h:Move(Vector3.zero, false) h:MoveTo(c.Position) end
     end
 
     local function v261()
-        local d = workspace:FindFirstChild("__DEBRIS") if not d then return {} end
+        local d = workspace:FindFirstChild("__DEBRIS")
+        if not d then return {} end
         local t = {}
         for _, v in ipairs(d:GetChildren()) do
             if v.Name == "PlayerTrap" or v.Name:find("Trap") then
@@ -300,44 +470,74 @@ task.spawn(function(...)
         return t
     end
 
-    local function v262(pos, r) for _, t in ipairs(v261()) do if Vector2.new(t.X-pos.X, t.Z-pos.Z).Magnitude <= (r or 5) and math.abs(t.Y-pos.Y) <= 3.5 then return true, t end end return false end
+    local function v262(pos, r)
+        for _, t in ipairs(v261()) do
+            if Vector2.new(t.X-pos.X, t.Z-pos.Z).Magnitude <= (r or 5) and math.abs(t.Y-pos.Y) <= 3.5 then return true, t end
+        end
+        return false
+    end
 
     function t11.value30(target, radius, timeout, height)
-        radius = radius or 2.5 height = height or 5 timeout = timeout or 60
+        radius = radius or 2.5
+        height = height or 5
+        timeout = timeout or 60
         local up = Vector3.new(0, height, 0)
-        local hrp = v245() local hum = t11.value21()
+        local hrp = v245()
+        local hum = t11.value21()
         if not hrp or not hum then return false end
         if radius >= (target - hrp.Position).Magnitude then return true end
         local spd = math.max(16, t11.value15.WalkSpeedValue or 60)
         local waypoints = {}
-        local diff = target - hrp.Position local mag = diff.Magnitude
+        local diff = target - hrp.Position
+        local mag = diff.Magnitude
         if mag > 15 then
-            local dir = diff.Unit local perp = Vector3.new(-dir.Z, 0, dir.X).Unit
+            local dir = diff.Unit
+            local perp = Vector3.new(-dir.Z, 0, dir.X).Unit
             table.insert(waypoints, hrp.Position + up)
             if t11.value15.ZigZagEvasion then
-                for i = 1, math.floor(mag/35)-1 do table.insert(waypoints, hrp.Position:Lerp(target, i*35/mag) + up + perp*(12*(i%2~=1 and -1 or 1))) end
+                for i = 1, math.floor(mag/35)-1 do
+                    table.insert(waypoints, hrp.Position:Lerp(target, i*35/mag) + up + perp*(12*(i%2~=1 and -1 or 1)))
+                end
             else
                 for _, tr in ipairs(v261()) do
                     local d = Vector2.new(tr.X-hrp.Position.X, tr.Z-hrp.Position.Z).Magnitude
-                    if d > 10 and d < mag-10 then local wp = hrp.Position:Lerp(target, d/mag) + up
-                        if Vector2.new(tr.X-wp.X, tr.Z-wp.Z).Magnitude < 6 then table.insert(waypoints, wp + perp*(tr.Z > wp.Z and -8 or 8)) end end
+                    if d > 10 and d < mag-10 then
+                        local wp = hrp.Position:Lerp(target, d/mag) + up
+                        if Vector2.new(tr.X-wp.X, tr.Z-wp.Z).Magnitude < 6 then
+                            table.insert(waypoints, wp + perp*(tr.Z > wp.Z and -8 or 8))
+                        end
+                    end
                 end
             end
             table.insert(waypoints, target + up)
         end
-        local trapped, trPos = v262(target, 4) if trapped and trPos then target += Vector3.new(0,2,3) end
+        local trapped, trPos = v262(target, 4)
+        if trapped and trPos then target += Vector3.new(0, 2, 3) end
         table.insert(waypoints, target)
+
         for _, wp in ipairs(waypoints) do
-            if not t11.value15.AutoSteal then break end local h = t11.value21() if not (h and h.Health > 0) then break end
-            local d = wp - hrp.Position if d.Magnitude <= 1 then continue end
+            if not t11.value15.AutoSteal then break end
+            local h = t11.value21()
+            if not (h and h.Health > 0) then break end
+            local d = wp - hrp.Position
+            if d.Magnitude <= 1 then continue end
             local dur = math.clamp(d.Magnitude/spd, 0.04, timeout)
             local look = d.Magnitude > 0.1 and wp + d.Unit or wp
             local tw = t11.value2:Create(hrp, TweenInfo.new(dur, Enum.EasingStyle.Linear), {CFrame = CFrame.new(wp, look)})
-            local conn = t11.value1.Heartbeat:Connect(function() if hrp and hrp.Parent then hrp.AssemblyLinearVelocity = Vector3.zero hrp.AssemblyAngularVelocity = Vector3.zero end end)
-            local done = false local doneConn = tw.Completed:Connect(function() done = true end)
-            tw:Play() local t0 = tick()
-            while not done and tick()-t0 < dur+2.5 do local h2 = t11.value21() if not (h2 and h2.Health > 0 and t11.value15.AutoSteal) then break end task.wait(0.02) end
-            pcall(function() doneConn:Disconnect() end) pcall(function() conn:Disconnect() end)
+            local conn = t11.value1.Heartbeat:Connect(function()
+                if hrp and hrp.Parent then hrp.AssemblyLinearVelocity = Vector3.zero hrp.AssemblyAngularVelocity = Vector3.zero end
+            end)
+            local done = false
+            local doneConn = tw.Completed:Connect(function() done = true end)
+            tw:Play()
+            local t0 = tick()
+            while not done and tick()-t0 < dur+2.5 do
+                local h2 = t11.value21()
+                if not (h2 and h2.Health > 0 and t11.value15.AutoSteal) then break end
+                task.wait(0.02)
+            end
+            pcall(function() doneConn:Disconnect() end)
+            pcall(function() conn:Disconnect() end)
             if not done then pcall(function() tw:Cancel() end) break end
         end
         t11.value26 = false
@@ -346,139 +546,183 @@ task.spawn(function(...)
         return (target - hrp.Position).Magnitude <= radius + 3
     end
 
+    -- Auto-steal main loop
     task.spawn(function()
-        while true do task.wait(0.1)
+        while true do
+            task.wait(0.1)
             if not (t11.value15.AutoSteal and v246() and t11.value6) then continue end
-            if v247() then table.clear(t11.value29) repeat task.wait(1) until not v247() or not t11.value15.AutoSteal end
+            if v247() then
+                table.clear(t11.value29)
+                repeat task.wait(1) until not v247() or not t11.value15.AutoSteal
+            end
             if not t11.value15.AutoSteal then continue end
             pcall(function()
                 local hrp = v245()
-                if hrp and hrp.Position.X < 552.2 and (t11.value25 - hrp.Position * Vector3.new(1,0,1)).Magnitude > 4 then
-                    t11.value30(t11.value25, 3, 30, 5) local h = t11.value21() if not (h and h.Health > 0 and t11.value15.AutoSteal) then return end
+                if hrp and hrp.Position.X < 552.2 and (t11.value25 - hrp.Position * Vector3.new(1, 0, 1)).Magnitude > 4 then
+                    t11.value30(t11.value25, 3, 30, 5)
+                    local h = t11.value21()
+                    if not (h and h.Health > 0 and t11.value15.AutoSteal) then return end
                 end
                 local data
-                if t11.value6 and t11.value6.ReadFieldEggs then local ok,r = pcall(t11.value6.ReadFieldEggs) if ok and r and r.Records then data = r end end
-                if not data and t11.value10 and t11.value10.AskFieldEggSnapshot then local ok,r = pcall(function() return t11.value10.AskFieldEggSnapshot:InvokeServer() end) if ok and r and r.Records then data = r end end
+                if t11.value6 and t11.value6.ReadFieldEggs then
+                    local ok, r = pcall(t11.value6.ReadFieldEggs)
+                    if ok and r and r.Records then data = r end
+                end
+                if not data and t11.value10 and t11.value10.AskFieldEggSnapshot then
+                    local ok, r = pcall(function() return t11.value10.AskFieldEggSnapshot:InvokeServer() end)
+                    if ok and r and r.Records then data = r end
+                end
                 if not data or not data.Records then return end
-                local now = tick() local list = {}
+                local now = tick()
+                local list = {}
                 for _, rec in ipairs(data.Records) do
                     if v232(rec.AreaId) and rec.State == "Slot" and rec.Uid and not (t11.value29[rec.Uid] and now < t11.value29[rec.Uid]) then
                         table.insert(list, {record=rec, meta=t11.value20(rec)})
                     end
                 end
-                if t11.value15.PrioritizeBestEggs then table.sort(list, function(a,b) return a.meta.score > b.meta.score end) end
+                if t11.value15.PrioritizeBestEggs then table.sort(list, function(a, b) return a.meta.score > b.meta.score end) end
                 for _, item in ipairs(list) do
-                    if not t11.value15.AutoSteal then return end local h = t11.value21() if not (h and h.Health > 0) then return end if v247() then return end
-                    local rec = item.record local cf = v249(rec.BottomCFrame or rec.BoundsCFrame) if not cf then continue end
+                    if not t11.value15.AutoSteal then return end
+                    local h = t11.value21()
+                    if not (h and h.Health > 0) then return end
+                    if v247() then return end
+                    local rec = item.record
+                    local cf = v249(rec.BottomCFrame or rec.BoundsCFrame)
+                    if not cf then continue end
                     local ac = workspace:FindFirstChild("AreaEggSlotsClient")
-                    local pos = cf.Position + Vector3.new(0,1.5,0)
+                    local pos = cf.Position + Vector3.new(0, 1.5, 0)
                     if ac then local f = ac:FindFirstChild(rec.Uid) if f then pos = f:GetPivot().Position end end
                     if not t11.value30(pos, 3, 60, 5) then return end
-                    local hrp2 = v245() if hrp2 then hrp2.AssemblyLinearVelocity = Vector3.zero end
-                    local uid = rec.Uid local slotKey
-                    if t11.value8 and t11.value8.LooksLikeFirstAreaUid and t11.value8.LooksLikeFirstAreaUid(uid) then slotKey = t11.value8.SlotKey(rec.AreaId, rec.NestId) end
+                    local hrp2 = v245()
+                    if hrp2 then hrp2.AssemblyLinearVelocity = Vector3.zero end
+                    local uid = rec.Uid
+                    local slotKey
+                    if t11.value8 and t11.value8.LooksLikeFirstAreaUid and t11.value8.LooksLikeFirstAreaUid(uid) then
+                        slotKey = t11.value8.SlotKey(rec.AreaId, rec.NestId)
+                    end
                     ac = workspace:FindFirstChild("AreaEggSlotsClient")
                     local found = ac and ac:FindFirstChild(uid) ~= nil
                     if not found and ac then
-                        local best local bestD = 80
-                        for _, m in ipairs(ac:GetChildren()) do if m:IsA("Model") and not (t11.value29[m.Name] and now < t11.value29[m.Name]) then
-                            local d = (hrp2.Position - m:GetPivot().Position).Magnitude if d < bestD then bestD = d best = m end end end
-                        if best then uid = best.Name slotKey = nil
-                            if t11.value8 and t11.value8.LooksLikeFirstAreaUid and t11.value8.LooksLikeFirstAreaUid(uid) then slotKey = t11.value8.SlotKey(rec.AreaId, rec.NestId) end
+                        local best
+                        local bestD = 80
+                        for _, m in ipairs(ac:GetChildren()) do
+                            if m:IsA("Model") and not (t11.value29[m.Name] and now < t11.value29[m.Name]) then
+                                local d = (hrp2.Position - m:GetPivot().Position).Magnitude
+                                if d < bestD then bestD = d best = m end
+                            end
+                        end
+                        if best then
+                            uid = best.Name
+                            slotKey = nil
+                            if t11.value8 and t11.value8.LooksLikeFirstAreaUid and t11.value8.LooksLikeFirstAreaUid(uid) then
+                                slotKey = t11.value8.SlotKey(rec.AreaId, rec.NestId)
+                            end
                             t11.value30(best:GetPivot().Position, 3, 15, 4)
-                            local hrp3 = v245() if hrp3 then hrp3.AssemblyLinearVelocity = Vector3.zero end
+                            local hrp3 = v245()
+                            if hrp3 then hrp3.AssemblyLinearVelocity = Vector3.zero end
                         end
                     end
-                    local grabbed = false local t0 = tick()
+                    local grabbed = false
+                    local t0 = tick()
                     while tick()-t0 < 1.8 and not grabbed do
-                        local h = t11.value21() if not (h and h.Health > 0 and t11.value15.AutoSteal) then break end
+                        local h = t11.value21()
+                        if not (h and h.Health > 0 and t11.value15.AutoSteal) then break end
                         local ok, r = pcall(function() return t11.value6.CarryFieldEgg(uid, slotKey) end)
                         if ok and r then grabbed = true break end
-                        local c = t11.value5.Character if c and c:FindFirstChildOfClass("Tool") then grabbed = true break end
+                        local c = t11.value5.Character
+                        if c and c:FindFirstChildOfClass("Tool") then grabbed = true break end
                         task.wait(0.08)
                     end
-                    if not grabbed then local c = t11.value5.Character grabbed = c and c:FindFirstChildOfClass("Tool") ~= nil end
-                    if grabbed then t11.value29[uid] = tick()+600 t11.value29[rec.Uid] = tick()+600 t11.value27 = true
-                    else t11.value29[uid] = tick()+120 t11.value29[rec.Uid] = tick()+120 end
-                    local h2 = t11.value21() if not (h2 and h2.Health > 0 and t11.value15.AutoSteal) then t11.value27 = false return end
-                    if grabbed then t11.value30(t11.value25, 3, 60, 5) t11.value27 = false task.wait(0.2) v250() task.wait(math.max(0.1, t11.value15.StealDelay or 0.5)) return end
-                    t11.value27 = false task.wait(0.1)
+                    if not grabbed then
+                        local c = t11.value5.Character
+                        grabbed = c and c:FindFirstChildOfClass("Tool") ~= nil
+                    end
+                    if grabbed then
+                        t11.value29[uid] = tick()+600
+                        t11.value29[rec.Uid] = tick()+600
+                        t11.value27 = true
+                    else
+                        t11.value29[uid] = tick()+120
+                        t11.value29[rec.Uid] = tick()+120
+                    end
+                    local h2 = t11.value21()
+                    if not (h2 and h2.Health > 0 and t11.value15.AutoSteal) then t11.value27 = false return end
+                    if grabbed then
+                        t11.value30(t11.value25, 3, 60, 5)
+                        t11.value27 = false
+                        task.wait(0.2)
+                        v250()
+                        task.wait(math.max(0.1, t11.value15.StealDelay or 0.5))
+                        return
+                    end
+                    t11.value27 = false
+                    task.wait(0.1)
                 end
             end)
         end
     end)
 
+    -- WalkSpeed handler
     t11.value1.Heartbeat:Connect(function()
         t11.value12()
-        local h = t11.value21() local hrp = v245()
+        local h = t11.value21()
+        local hrp = v245()
         if h and h.Health > 0 and not t11.value26 and t11.value15.WalkSpeedEnabled and hrp and h.MoveDirection.Magnitude > 0 then
             local s = t11.value15.WalkSpeedValue or 60
             hrp.AssemblyLinearVelocity = Vector3.new(h.MoveDirection.X*s, hrp.AssemblyLinearVelocity.Y, h.MoveDirection.Z*s)
         end
     end)
 
+    -- NoClip during auto-steal
     t11.value1.Stepped:Connect(function()
-        if t11.value26 then local h = t11.value21() if h and h.Health > 0 then local c = t11.value5.Character if c then for _,v in ipairs(c:GetDescendants()) do if v:IsA("BasePart") and v.CanCollide then v.CanCollide = false end end end end end
-    end)
-
-    t10.value3.JumpRequest:Connect(function()
-        local h = t11.value21() local hrp = v245()
-        if h and h.Health > 0 and t11.value15.JumpPowerEnabled and hrp then
-            local extra = math.max(0, (t11.value15.JumpPowerValue or 100) - 50)
-            if extra > 0 then hrp.AssemblyLinearVelocity = Vector3.new(hrp.AssemblyLinearVelocity.X, 50+extra, hrp.AssemblyLinearVelocity.Z) end
+        if t11.value26 then
+            local h = t11.value21()
+            if h and h.Health > 0 then
+                local c = t11.value5.Character
+                if c then
+                    for _, v in ipairs(c:GetDescendants()) do
+                        if v:IsA("BasePart") and v.CanCollide then v.CanCollide = false end
+                    end
+                end
+            end
         end
     end)
 
-    task.spawn(function() while true do task.wait(1.5) if t11.value15.EggESP then pcall(t11.value24) end end end)
+    -- JumpPower handler
+    t10.value3.JumpRequest:Connect(function()
+        local h = t11.value21()
+        local hrp = v245()
+        if h and h.Health > 0 and t11.value15.JumpPowerEnabled and hrp then
+            local extra = math.max(0, (t11.value15.JumpPowerValue or 100) - 50)
+            if extra > 0 then
+                hrp.AssemblyLinearVelocity = Vector3.new(hrp.AssemblyLinearVelocity.X, 50+extra, hrp.AssemblyLinearVelocity.Z)
+            end
+        end
+    end)
 
-    function t11.value31(c) if not c then return end c.ChildAdded:Connect(function(ch) if t11.value15.AutoSteal and not t11.value27 and ch:IsA("Tool") then task.defer(v250) end end) end
-    t11.value5.CharacterAdded:Connect(function(c) task.spawn(function() task.wait(0.3) t11.value12() t11.value31(c) end) end)
+    -- ESP update loop
+    task.spawn(function()
+        while true do
+            task.wait(1.5)
+            if t11.value15.EggESP then pcall(t11.value24) end
+        end
+    end)
+
+    -- Auto-unequip tools
+    function t11.value31(c)
+        if not c then return end
+        c.ChildAdded:Connect(function(ch)
+            if t11.value15.AutoSteal and not t11.value27 and ch:IsA("Tool") then task.defer(v250) end
+        end)
+    end
+    t11.value5.CharacterAdded:Connect(function(c)
+        task.spawn(function() task.wait(0.3) t11.value12() t11.value31(c) end)
+    end)
     if t11.value5.Character then t11.value31(t11.value5.Character) end
 
-    -- ═══════════════════════════════════════════════
-    -- TABS — UI LIMPIA SIN EMOJIS, MODERNA
-    -- ═══════════════════════════════════════════════
-    local win = t11.value14
-
-    local t1 = win:Tab({Title = "Auto Steal", Icon = "zap"})
-    t1:Section({Title = "Farming"})
-    t1:Toggle({Title = "Auto Steal Eggs", Desc = "Grabs eggs and delivers to base", Value = false, Callback = function(v) t11.value15.AutoSteal = v if not v then v260() end end})
-    t1:Toggle({Title = "Instant Steal", Desc = "Press E to grab instantly", Value = false, Callback = function(v) t11.value15.InstantStealPrompt = v end})
-    t1:Toggle({Title = "Prioritize Best Eggs", Desc = "Sort by highest CPS", Value = true, Callback = function(v) t11.value15.PrioritizeBestEggs = v end})
-    t1:Dropdown({Title = "Target Areas", Values = {"All","Forest","Lake","Desert","Jungle","Snow","Volcano","Abyss Ocean","Prehistoric","Cosmic","Cherry Blossom","Titan Temple"}, Value = {"All"}, Multi = true,
-        Callback = function(v) if type(v) == "table" then t11.value15.StealAreas = v else t11.value15.StealAreas = {v} end end})
-    t1:Toggle({Title = "Zig Zag Evasion", Desc = "Dodge traps while moving", Value = false, Callback = function(v) t11.value15.ZigZagEvasion = v end})
-    t1:Slider({Title = "Steal Delay", Value = {Min=0.1,Max=30,Default=0.5}, Step=0.1, Callback = function(v) t11.value15.StealDelay = v end})
-
-    local t2 = win:Tab({Title = "Movement", Icon = "person-standing"})
-    t2:Section({Title = "Speed"})
-    t2:Toggle({Title = "Custom WalkSpeed", Value = false, Callback = function(v) t11.value15.WalkSpeedEnabled = v end})
-    t2:Slider({Title = "WalkSpeed", Value = {Min=16,Max=900,Default=60}, Step=1, Callback = function(v) t11.value15.WalkSpeedValue = v end})
-    t2:Toggle({Title = "Custom JumpPower", Value = false, Callback = function(v) t11.value15.JumpPowerEnabled = v end})
-    t2:Slider({Title = "JumpPower", Value = {Min=50,Max=250,Default=100}, Step=1, Callback = function(v) t11.value15.JumpPowerValue = v end})
-
-    local t3 = win:Tab({Title = "Visuals", Icon = "eye"})
-    t3:Section({Title = "ESP"})
-    t3:Toggle({Title = "Egg ESP", Desc = "3D labels with rarity and distance", Value = false, Callback = function(v) t11.value15.EggESP = v if v then t11.value24() else v259() end end})
-
-    local t4 = win:Tab({Title = "Server", Icon = "server"})
-    t4:Section({Title = "Options"})
-    t4:Button({Title = "Rejoin Server", Callback = function() game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, t11.value5) end})
-    t4:Button({Title = "Server Hop", Callback = function() pcall(function() local d = t11.value4:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/"..game.PlaceId.."/servers/Public?sortOrder=Asc&limit=100")) for _, s in ipairs(d.data) do if s.playing < s.maxPlayers and s.id ~= game.JobId then game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, s.id, t11.value5) return end end end) end})
-
-    local t5 = win:Tab({Title = "About", Icon = "info"})
-    t5:Section({Title = "Info"})
-    t5:Paragraph({Title = "Eclipse Steal a Egg", Desc = "By: Eclipse OG Finder"})
-    t5:Section({Title = "Links"})
-    t5:Button({Title = "saiops.cc", Callback = function() if setclipboard then setclipboard("https://saiops.cc") end t11.value13:Notify({Title="Copied",Content="https://saiops.cc",Duration=3}) end})
-    t5:Button({Title = "discord.gg/saiops", Callback = function() if setclipboard then setclipboard("discord.gg/NPDTkJ2hUU") end t11.value13:Notify({Title="Copied",Content="discord.gg/NPDTkJ2hUU",Duration=3}) end})
-    t5:Button({Title = "YouTube: @SAIOPS-CC", Callback = function() if setclipboard then setclipboard("https://youtube.com/@SAIOPS-CC") end t11.value13:Notify({Title="Copied",Content="youtube.com/@SAIOPS-CC",Duration=3}) end})
-
-    t11.value13:Notify({Title = "Eclipse Loaded", Content = "Right Shift to toggle", Duration = 4})
-
-    -- ═══════════════════════════════════════
+    -- ═══════════════════════════════
     -- WINDUI FINDER
-    -- ═══════════════════════════════════════
+    -- ═══════════════════════════════
     t11.value32 = nil
     function t11.value33()
         if t11.value32 and t11.value32.Parent then return t11.value32 end
@@ -487,22 +731,167 @@ task.spawn(function(...)
             if c:IsA("ScreenGui") and (c.Name == "WindUI" or c:FindFirstChild("Main")) then t11.value32 = c return c end
         end
         local pg = t11.value5:FindFirstChildOfClass("PlayerGui")
-        if pg then for _, c in ipairs(pg:GetChildren()) do if c:IsA("ScreenGui") and (c.Name == "WindUI" or c:FindFirstChild("Main")) then return c end end end
+        if pg then
+            for _, c in ipairs(pg:GetChildren()) do
+                if c:IsA("ScreenGui") and (c.Name == "WindUI" or c:FindFirstChild("Main")) then return c end
+            end
+        end
         return nil
     end
 
+    -- ═══════════════════════════════════════════════
+    -- TABS — UI DESDE 0, SIN EMOJIS
+    -- ═══════════════════════════════════════════════
+    local win = t11.value14
+
+    -- Tab 1: Auto Steal
+    local t1 = win:Tab({Title = "Auto Steal", Icon = "zap"})
+    t1:Section({Title = "Farming"})
+    t1:Toggle({
+        Title = "Auto Steal Eggs",
+        Desc = "Grabs eggs and delivers to base",
+        Value = false,
+        Callback = function(v)
+            t11.value15.AutoSteal = v
+            if not v then v260() end
+        end
+    })
+    t1:Toggle({
+        Title = "Instant Steal",
+        Desc = "Press E to grab instantly",
+        Value = false,
+        Callback = function(v) t11.value15.InstantStealPrompt = v end
+    })
+    t1:Toggle({
+        Title = "Prioritize Best Eggs",
+        Desc = "Sort by highest CPS",
+        Value = true,
+        Callback = function(v) t11.value15.PrioritizeBestEggs = v end
+    })
+    t1:Dropdown({
+        Title = "Target Areas",
+        Values = {"All","Forest","Lake","Desert","Jungle","Snow","Volcano","Abyss Ocean","Prehistoric","Cosmic","Cherry Blossom","Titan Temple"},
+        Value = {"All"},
+        Multi = true,
+        Callback = function(v)
+            if type(v) == "table" then t11.value15.StealAreas = v else t11.value15.StealAreas = {v} end
+        end
+    })
+    t1:Toggle({
+        Title = "Zig Zag Evasion",
+        Desc = "Dodge traps while moving",
+        Value = false,
+        Callback = function(v) t11.value15.ZigZagEvasion = v end
+    })
+    t1:Slider({
+        Title = "Steal Delay",
+        Value = {Min=0.1, Max=30, Default=0.5},
+        Step = 0.1,
+        Callback = function(v) t11.value15.StealDelay = v end
+    })
+
+    -- Tab 2: Movement
+    local t2 = win:Tab({Title = "Movement", Icon = "person-standing"})
+    t2:Section({Title = "Speed"})
+    t2:Toggle({
+        Title = "Custom WalkSpeed",
+        Value = false,
+        Callback = function(v) t11.value15.WalkSpeedEnabled = v end
+    })
+    t2:Slider({
+        Title = "WalkSpeed",
+        Value = {Min=16, Max=900, Default=60},
+        Step = 1,
+        Callback = function(v) t11.value15.WalkSpeedValue = v end
+    })
+    t2:Toggle({
+        Title = "Custom JumpPower",
+        Value = false,
+        Callback = function(v) t11.value15.JumpPowerEnabled = v end
+    })
+    t2:Slider({
+        Title = "JumpPower",
+        Value = {Min=50, Max=250, Default=100},
+        Step = 1,
+        Callback = function(v) t11.value15.JumpPowerValue = v end
+    })
+
+    -- Tab 3: Visuals
+    local t3 = win:Tab({Title = "Visuals", Icon = "eye"})
+    t3:Section({Title = "ESP"})
+    t3:Toggle({
+        Title = "Egg ESP",
+        Desc = "3D labels with rarity and distance",
+        Value = false,
+        Callback = function(v)
+            t11.value15.EggESP = v
+            if v then t11.value24() else v259() end
+        end
+    })
+
+    -- Tab 4: Server
+    local t4 = win:Tab({Title = "Server", Icon = "server"})
+    t4:Section({Title = "Options"})
+    t4:Button({
+        Title = "Rejoin Server",
+        Callback = function()
+            game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, t11.value5)
+        end
+    })
+    t4:Button({
+        Title = "Server Hop",
+        Callback = function()
+            pcall(function()
+                local d = t11.value4:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/"..game.PlaceId.."/servers/Public?sortOrder=Asc&limit=100"))
+                for _, s in ipairs(d.data) do
+                    if s.playing < s.maxPlayers and s.id ~= game.JobId then
+                        game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, s.id, t11.value5)
+                        return
+                    end
+                end
+            end)
+        end
+    })
+
+    -- Tab 5: About
+    local t5 = win:Tab({Title = "About", Icon = "info"})
+    t5:Section({Title = "Info"})
+    t5:Paragraph({Title = "Eclipse Steal a Egg", Desc = "By: Eclipse OG Finder"})
+    t5:Section({Title = "Links"})
+    t5:Button({
+        Title = "saiops.cc",
+        Callback = function()
+            if setclipboard then setclipboard("https://saiops.cc") end
+            t11.value13:Notify({Title="Copied", Content="https://saiops.cc", Duration=3})
+        end
+    })
+    t5:Button({
+        Title = "discord.gg/saiops",
+        Callback = function()
+            if setclipboard then setclipboard("discord.gg/NPDTkJ2hUU") end
+            t11.value13:Notify({Title="Copied", Content="discord.gg/NPDTkJ2hUU", Duration=3})
+        end
+    })
+    t5:Button({
+        Title = "YouTube: @SAIOPS-CC",
+        Callback = function()
+            if setclipboard then setclipboard("https://youtube.com/@SAIOPS-CC") end
+            t11.value13:Notify({Title="Copied", Content="youtube.com/@SAIOPS-CC", Duration=3})
+        end
+    })
+
+    t11.value13:Notify({Title = "Eclipse Loaded", Content = "Right Shift to toggle", Duration = 4})
+
     -- ═══════════════════════════════════════════════════════════════════════════════
-    -- ██  ECLIPSE PROGRAMATICO — 100% CODIGO, SIN IMAGENES, GARANTIZADO  ██
+    -- ██  ECLIPSE PROGRAMATICO — 100% CODIGO, SIN IMAGENES  ██
     -- ═══════════════════════════════════════════════════════════════════════════════
 
     local function createEclipse(parent)
         local TS = t11.value2
-
-        -- Centrado del eclipse
         local cx, cy = 0.5, 0.38
         local anchor = Vector2.new(0.5, 0.5)
 
-        -- █ CAPA 0: Fondo oscuro con gradiente radial
+        -- CAPA 0: Fondo oscuro con gradiente
         local darkBG = Instance.new("Frame")
         darkBG.Size = UDim2.fromScale(1, 1)
         darkBG.BackgroundColor3 = Color3.fromHex("#060300")
@@ -520,7 +909,7 @@ task.spawn(function(...)
         })
         darkGrad.Parent = darkBG
 
-        -- █ CAPA 1: Resplandor atmosferico exterior (muy grande, muy suave)
+        -- CAPA 1: Resplandor atmosferico exterior
         local atmGlow = Instance.new("Frame")
         atmGlow.Size = UDim2.fromOffset(320, 320)
         atmGlow.AnchorPoint = anchor
@@ -533,7 +922,7 @@ task.spawn(function(...)
         atmGlow.Parent = parent
         Instance.new("UICorner", atmGlow).CornerRadius = UDim.new(1, 0)
 
-        -- Resplandor atmosferico 2 (dorado)
+        -- Resplandor atmosferico dorado
         local atmGlow2 = Instance.new("Frame")
         atmGlow2.Size = UDim2.fromOffset(260, 260)
         atmGlow2.AnchorPoint = anchor
@@ -546,80 +935,79 @@ task.spawn(function(...)
         atmGlow2.Parent = parent
         Instance.new("UICorner", atmGlow2).CornerRadius = UDim.new(1, 0)
 
-        -- █ CAPA 2: Corona exterior (aro grueso con UIStroke)
-        local coronaOutFrame = Instance.new("Frame")
-        coronaOutFrame.Size = UDim2.fromOffset(200, 200)
-        coronaOutFrame.AnchorPoint = anchor
-        coronaOutFrame.Position = UDim2.fromScale(cx, cy)
-        coronaOutFrame.BackgroundTransparency = 1
-        coronaOutFrame.BorderSizePixel = 0
-        coronaOutFrame.ZIndex = 2
-        coronaOutFrame.Active = false
-        coronaOutFrame.Parent = parent
-        Instance.new("UICorner", coronaOutFrame).CornerRadius = UDim.new(1, 0)
+        -- CAPA 2: Corona exterior (aro grueso)
+        local coF = Instance.new("Frame")
+        coF.Size = UDim2.fromOffset(200, 200)
+        coF.AnchorPoint = anchor
+        coF.Position = UDim2.fromScale(cx, cy)
+        coF.BackgroundTransparency = 1
+        coF.BorderSizePixel = 0
+        coF.ZIndex = 2
+        coF.Active = false
+        coF.Parent = parent
+        Instance.new("UICorner", coF).CornerRadius = UDim.new(1, 0)
 
-        local coronaOutStroke = Instance.new("UIStroke")
-        coronaOutStroke.Color = Color3.fromHex("#FF6B35")
-        coronaOutStroke.Thickness = 28
-        coronaOutStroke.Transparency = 0.15
-        coronaOutStroke.Parent = coronaOutFrame
+        local coSt = Instance.new("UIStroke")
+        coSt.Color = Color3.fromHex("#FF6B35")
+        coSt.Thickness = 28
+        coSt.Transparency = 0.15
+        coSt.Parent = coF
 
-        -- Gradiente en la corona exterior
-        local coGrad = Instance.new("UIGradient")
-        coGrad.Color = ColorSequence.new({
+        local coGr = Instance.new("UIGradient")
+        coGr.Color = ColorSequence.new({
             ColorSequenceKeypoint.new(0, Color3.fromHex("#FF4500")),
             ColorSequenceKeypoint.new(0.3, Color3.fromHex("#FF6B35")),
             ColorSequenceKeypoint.new(0.5, Color3.fromHex("#FFAA55")),
             ColorSequenceKeypoint.new(0.7, Color3.fromHex("#FF6B35")),
             ColorSequenceKeypoint.new(1, Color3.fromHex("#FF4500"))
         })
-        coGrad.Parent = coronaOutStroke
+        coGr.Parent = coSt
 
-        -- █ CAPA 3: Corona media (aro mas fino, mas brillante)
-        local coronaMidFrame = Instance.new("Frame")
-        coronaMidFrame.Size = UDim2.fromOffset(155, 155)
-        coronaMidFrame.AnchorPoint = anchor
-        coronaMidFrame.Position = UDim2.fromScale(cx, cy)
-        coronaMidFrame.BackgroundTransparency = 1
-        coronaMidFrame.BorderSizePixel = 0
-        coronaMidFrame.ZIndex = 3
-        coronaMidFrame.Active = false
-        coronaMidFrame.Parent = parent
-        Instance.new("UICorner", coronaMidFrame).CornerRadius = UDim.new(1, 0)
+        -- CAPA 3: Corona media
+        local cmF = Instance.new("Frame")
+        cmF.Size = UDim2.fromOffset(155, 155)
+        cmF.AnchorPoint = anchor
+        cmF.Position = UDim2.fromScale(cx, cy)
+        cmF.BackgroundTransparency = 1
+        cmF.BorderSizePixel = 0
+        cmF.ZIndex = 3
+        cmF.Active = false
+        cmF.Parent = parent
+        Instance.new("UICorner", cmF).CornerRadius = UDim.new(1, 0)
 
-        local coronaMidStroke = Instance.new("UIStroke")
-        coronaMidStroke.Color = Color3.fromHex("#FFD700")
-        coronaMidStroke.Thickness = 18
-        coronaMidStroke.Transparency = 0.1
-        coronaMidStroke.Parent = coronaMidFrame
+        local cmSt = Instance.new("UIStroke")
+        cmSt.Color = Color3.fromHex("#FFD700")
+        cmSt.Thickness = 18
+        cmSt.Transparency = 0.1
+        cmSt.Parent = cmF
 
-        -- █ CAPA 4: Corona interior (brillante, fino)
-        local coronaInFrame = Instance.new("Frame")
-        coronaInFrame.Size = UDim2.fromOffset(120, 120)
-        coronaInFrame.AnchorPoint = anchor
-        coronaInFrame.Position = UDim2.fromScale(cx, cy)
-        coronaInFrame.BackgroundTransparency = 1
-        coronaInFrame.BorderSizePixel = 0
-        coronaInFrame.ZIndex = 4
-        coronaInFrame.Active = false
-        coronaInFrame.Parent = parent
-        Instance.new("UICorner", coronaInFrame).CornerRadius = UDim.new(1, 0)
+        -- CAPA 4: Corona interior
+        local ciF = Instance.new("Frame")
+        ciF.Size = UDim2.fromOffset(120, 120)
+        ciF.AnchorPoint = anchor
+        ciF.Position = UDim2.fromScale(cx, cy)
+        ciF.BackgroundTransparency = 1
+        ciF.BorderSizePixel = 0
+        ciF.ZIndex = 4
+        ciF.Active = false
+        ciF.Parent = parent
+        Instance.new("UICorner", ciF).CornerRadius = UDim.new(1, 0)
 
-        local coronaInStroke = Instance.new("UIStroke")
-        coronaInStroke.Color = Color3.fromHex("#FFFFFF")
-        coronaInStroke.Thickness = 6
-        coronaInStroke.Transparency = 0.2
-        coronaInStroke.Parent = coronaInFrame
+        local ciSt = Instance.new("UIStroke")
+        ciSt.Color = Color3.fromHex("#FFFFFF")
+        ciSt.Thickness = 6
+        ciSt.Transparency = 0.2
+        ciSt.Parent = ciF
 
-        local ciGrad = Instance.new("UIGradient")
-        ciGrad.Color = ColorSequence.new({
+        local ciGr = Instance.new("UIGradient")
+        ciGr.Color = ColorSequence.new({
             ColorSequenceKeypoint.new(0, Color3.fromHex("#FFD700")),
             ColorSequenceKeypoint.new(0.5, Color3.fromHex("#FFFFFF")),
             ColorSequenceKeypoint.new(1, Color3.fromHex("#FFD700"))
         })
-        ciGrad.Parent = coronaInStroke
+        ciGr.Parent = ciSt
 
-        -- █ CAPA 5: Disco lunar (negro solido)
+        -- CAPA 5: Disco lunar
         local moon = Instance.new("Frame")
         moon.Size = UDim2.fromOffset(88, 88)
         moon.AnchorPoint = anchor
@@ -632,14 +1020,12 @@ task.spawn(function(...)
         moon.Parent = parent
         Instance.new("UICorner", moon).CornerRadius = UDim.new(1, 0)
 
-        -- Borde luminoso de la luna
-        local moonStroke = Instance.new("UIStroke")
-        moonStroke.Color = Color3.fromHex("#FFD700")
-        moonStroke.Thickness = 2
-        moonStroke.Transparency = 0.3
-        moonStroke.Parent = moon
+        local moonSt = Instance.new("UIStroke")
+        moonSt.Color = Color3.fromHex("#FFD700")
+        moonSt.Thickness = 2
+        moonSt.Transparency = 0.3
+        moonSt.Parent = moon
 
-        -- Brillo sutil en la luna (highlight)
         local moonHL = Instance.new("Frame")
         moonHL.Size = UDim2.new(0.4, 0, 0.4, 0)
         moonHL.Position = UDim2.new(0.15, 0, 0.1, 0)
@@ -651,7 +1037,7 @@ task.spawn(function(...)
         moonHL.Parent = moon
         Instance.new("UICorner", moonHL).CornerRadius = UDim.new(1, 0)
 
-        -- █ CAPA 6: Rayos de luz (12 lineas que rotan)
+        -- CAPA 6: Rayos primarios
         local rays = {}
         for i = 0, 11 do
             local ray = Instance.new("Frame")
@@ -666,8 +1052,8 @@ task.spawn(function(...)
             ray.Active = false
             ray.Parent = parent
 
-            local rGrad = Instance.new("UIGradient")
-            rGrad.Transparency = NumberSequence.new({
+            local rGr = Instance.new("UIGradient")
+            rGr.Transparency = NumberSequence.new({
                 NumberSequenceKeypoint.new(0, 1),
                 NumberSequenceKeypoint.new(0.3, 0.7),
                 NumberSequenceKeypoint.new(0.42, 0.15),
@@ -676,11 +1062,11 @@ task.spawn(function(...)
                 NumberSequenceKeypoint.new(0.7, 0.7),
                 NumberSequenceKeypoint.new(1, 1)
             })
-            rGrad.Parent = ray
+            rGr.Parent = ray
             table.insert(rays, ray)
         end
 
-        -- Rayos secundarios (mas cortos, mas transparentes)
+        -- Rayos secundarios
         for i = 0, 11 do
             local ray2 = Instance.new("Frame")
             ray2.Size = UDim2.fromOffset(200, 1)
@@ -694,8 +1080,8 @@ task.spawn(function(...)
             ray2.Active = false
             ray2.Parent = parent
 
-            local rGrad2 = Instance.new("UIGradient")
-            rGrad2.Transparency = NumberSequence.new({
+            local rGr2 = Instance.new("UIGradient")
+            rGr2.Transparency = NumberSequence.new({
                 NumberSequenceKeypoint.new(0, 1),
                 NumberSequenceKeypoint.new(0.35, 0.8),
                 NumberSequenceKeypoint.new(0.45, 0.3),
@@ -704,11 +1090,10 @@ task.spawn(function(...)
                 NumberSequenceKeypoint.new(0.65, 0.8),
                 NumberSequenceKeypoint.new(1, 1)
             })
-            rGrad2.Parent = ray2
+            rGr2.Parent = ray2
         end
 
-        -- █ CAPA 7: Particulas flotantes
-        local particles = {}
+        -- CAPA 7: Particulas flotantes
         local particleColors = {
             Color3.fromHex("#FF6B35"), Color3.fromHex("#FFD700"), Color3.fromHex("#FF8C42"),
             Color3.fromHex("#FFAA55"), Color3.fromHex("#FFFFFF"), Color3.fromHex("#FF4500")
@@ -727,18 +1112,26 @@ task.spawn(function(...)
             p.Parent = parent
             Instance.new("UICorner", p).CornerRadius = UDim.new(1, 0)
 
-            local pStroke = Instance.new("UIStroke")
-            pStroke.Color = p.BackgroundColor3
-            pStroke.Thickness = 1
-            pStroke.Transparency = 0.4
-            pStroke.Parent = p
+            local pSt = Instance.new("UIStroke")
+            pSt.Color = p.BackgroundColor3
+            pSt.Thickness = 1
+            pSt.Transparency = 0.4
+            pSt.Parent = p
 
-            table.insert(particles, p)
+            task.spawn(function()
+                while p.Parent do
+                    TS:Create(p, TweenInfo.new(math.random(8, 18), Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
+                        Position = UDim2.fromScale(math.random(5, 95) / 100, math.random(5, 95) / 100),
+                        BackgroundTransparency = math.random(65, 90) / 100
+                    }):Play()
+                    task.wait(math.random(8, 18))
+                end
+            end)
         end
 
         -- ═══ ANIMACIONES ═══
 
-        -- Pulso del resplandor atmosferico
+        -- Pulso atmosferico
         task.spawn(function()
             while atmGlow.Parent do
                 TS:Create(atmGlow, TweenInfo.new(4, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
@@ -758,101 +1151,187 @@ task.spawn(function(...)
             end
         end)
 
-        -- Pulso de coronas
+        -- Pulso coronas
         task.spawn(function()
-            while coronaOutFrame.Parent do
-                TS:Create(coronaOutFrame, TweenInfo.new(3.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
-                    Size = UDim2.fromOffset(215, 215)
-                }):Play()
-                TS:Create(coronaMidFrame, TweenInfo.new(3.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
-                    Size = UDim2.fromOffset(165, 165)
-                }):Play()
-                TS:Create(coronaInFrame, TweenInfo.new(3.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
-                    Size = UDim2.fromOffset(128, 128)
-                }):Play()
+            while coF.Parent do
+                TS:Create(coF, TweenInfo.new(3.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Size = UDim2.fromOffset(215, 215)}):Play()
+                TS:Create(cmF, TweenInfo.new(3.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Size = UDim2.fromOffset(165, 165)}):Play()
+                TS:Create(ciF, TweenInfo.new(3.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Size = UDim2.fromOffset(128, 128)}):Play()
                 task.wait(3.5)
-                TS:Create(coronaOutFrame, TweenInfo.new(3.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
-                    Size = UDim2.fromOffset(200, 200)
-                }):Play()
-                TS:Create(coronaMidFrame, TweenInfo.new(3.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
-                    Size = UDim2.fromOffset(155, 155)
-                }):Play()
-                TS:Create(coronaInFrame, TweenInfo.new(3.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
-                    Size = UDim2.fromOffset(120, 120)
-                }):Play()
+                TS:Create(coF, TweenInfo.new(3.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Size = UDim2.fromOffset(200, 200)}):Play()
+                TS:Create(cmF, TweenInfo.new(3.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Size = UDim2.fromOffset(155, 155)}):Play()
+                TS:Create(ciF, TweenInfo.new(3.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Size = UDim2.fromOffset(120, 120)}):Play()
                 task.wait(3.5)
             end
         end)
 
-        -- Rotacion de rayos
+        -- Rotacion rayos
         task.spawn(function()
-            local rotOffset = 0
+            local off = 0
             while parent.Parent do
-                rotOffset = rotOffset + 0.3
+                off = off + 0.3
                 for i, ray in ipairs(rays) do
-                    if ray and ray.Parent then
-                        ray.Rotation = (i - 1) * 30 + rotOffset
-                    end
+                    if ray and ray.Parent then ray.Rotation = (i-1) * 30 + off end
                 end
                 task.wait(0.03)
             end
         end)
 
-        -- Rotacion del gradiente de corona
+        -- Rotacion gradiente corona
         task.spawn(function()
-            while coGrad.Parent do
-                TS:Create(coGrad, TweenInfo.new(8, Enum.EasingStyle.Linear), {Rotation = 360}):Play()
-                task.wait(8) coGrad.Rotation = 0
+            while coGr.Parent do
+                TS:Create(coGr, TweenInfo.new(8, Enum.EasingStyle.Linear), {Rotation = 360}):Play()
+                task.wait(8)
+                coGr.Rotation = 0
             end
         end)
 
-        -- Pulso del borde de la luna
+        -- Pulso borde lunar
         task.spawn(function()
-            while moonStroke.Parent do
-                TS:Create(moonStroke, TweenInfo.new(3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
-                    Thickness = 3, Transparency = 0.15
-                }):Play()
+            while moonSt.Parent do
+                TS:Create(moonSt, TweenInfo.new(3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Thickness = 3, Transparency = 0.15}):Play()
                 task.wait(3)
-                TS:Create(moonStroke, TweenInfo.new(3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
-                    Thickness = 2, Transparency = 0.35
-                }):Play()
+                TS:Create(moonSt, TweenInfo.new(3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Thickness = 2, Transparency = 0.35}):Play()
                 task.wait(3)
             end
         end)
 
-        -- Particulas flotantes
-        for _, p in ipairs(particles) do
-            task.spawn(function()
-                while p.Parent do
-                    local tx = math.random(5, 95) / 100
-                    local ty = math.random(5, 95) / 100
-                    local dur = math.random(8, 18)
-                    TS:Create(p, TweenInfo.new(dur, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
-                        Position = UDim2.fromScale(tx, ty),
-                        BackgroundTransparency = math.random(65, 90) / 100
-                    }):Play()
-                    task.wait(dur)
-                end
-            end)
-        end
-
-        -- Pulso sutil del highlight lunar
+        -- Pulso highlight lunar
         task.spawn(function()
             while moonHL.Parent do
-                TS:Create(moonHL, TweenInfo.new(2.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
-                    BackgroundTransparency = 0.88
-                }):Play()
+                TS:Create(moonHL, TweenInfo.new(2.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.88}):Play()
                 task.wait(2.5)
-                TS:Create(moonHL, TweenInfo.new(2.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
-                    BackgroundTransparency = 0.94
-                }):Play()
+                TS:Create(moonHL, TweenInfo.new(2.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {BackgroundTransparency = 0.94}):Play()
                 task.wait(2.5)
             end
         end)
     end
 
+    -- ═══════════════════════════════════════════════
+    -- ██  COPOS DE NIEVE CAYENDO  ██
+    -- ═══════════════════════════════════════════════
+
+    local function createFallingParticles(parent)
+        local TS = t11.value2
+        local colors = {
+            Color3.fromHex("#FF6B35"), Color3.fromHex("#FFD700"), Color3.fromHex("#FFAA55"),
+            Color3.fromHex("#FF8C42"), Color3.fromHex("#FFFFFF"), Color3.fromHex("#FF4500"),
+            Color3.fromHex("#FFE4B5"), Color3.fromHex("#FFCC80")
+        }
+
+        for i = 1, 35 do
+            task.spawn(function()
+                while parent.Parent do
+                    local sz = math.random(3, 8)
+                    local flake = Instance.new("Frame")
+                    flake.Size = UDim2.fromOffset(sz, sz)
+                    flake.BackgroundColor3 = colors[math.random(1, #colors)]
+                    flake.BackgroundTransparency = math.random(40, 75) / 100
+                    flake.BorderSizePixel = 0
+                    flake.ZIndex = 10
+                    flake.Active = false
+                    flake.Position = UDim2.fromScale(math.random(0, 100) / 100, -0.05)
+                    flake.Parent = parent
+                    Instance.new("UICorner", flake).CornerRadius = UDim.new(1, 0)
+
+                    local fSt = Instance.new("UIStroke")
+                    fSt.Color = flake.BackgroundColor3
+                    fSt.Thickness = 1
+                    fSt.Transparency = 0.3
+                    fSt.Parent = flake
+
+                    local fallDur = math.random(8, 18)
+                    local drift = (math.random(-30, 30) / 100)
+                    local endX = math.clamp(flake.Position.X.Scale + drift, 0.02, 0.98)
+
+                    TS:Create(flake, TweenInfo.new(fallDur, Enum.EasingStyle.Linear), {
+                        Position = UDim2.fromScale(endX, 1.05)
+                    }):Play()
+
+                    -- Sway horizontal
+                    task.spawn(function()
+                        local swayDur = math.random(2, 5)
+                        while flake.Parent and flake.Position.Y.Scale < 1 do
+                            TS:Create(flake, TweenInfo.new(swayDur, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
+                                Position = UDim2.new(
+                                    math.clamp(flake.Position.X.Scale + (math.random(-5, 5) / 100), 0.02, 0.98), 0,
+                                    flake.Position.Y.Scale + 0.01, 0
+                                ),
+                                Rotation = math.random(-20, 20)
+                            }):Play()
+                            task.wait(swayDur)
+                        end
+                    end)
+
+                    -- Fade out al final
+                    task.wait(fallDur - 1)
+                    if flake and flake.Parent then
+                        TS:Create(flake, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                            BackgroundTransparency = 1
+                        }):Play()
+                        task.wait(1.1)
+                        if flake and flake.Parent then flake:Destroy() end
+                    end
+                end
+            end)
+            task.wait(math.random(20, 60) / 100)
+        end
+    end
+
+    -- ═══════════════════════════════════════════════
+    -- ██  EFECTOS DE ACTIVACION EN BOTONES  ██
+    -- ═══════════════════════════════════════════════
+
+    local function hookActivationEffects(root)
+        task.spawn(function()
+            task.wait(5)
+            local function addEffect(desc)
+                if desc:IsA("TextButton") or desc:IsA("ImageButton") then
+                    desc.MouseButton1Click:Connect(function()
+                        -- Flash dorado
+                        local flash = Instance.new("Frame")
+                        flash.Size = UDim2.fromScale(1, 1)
+                        flash.BackgroundColor3 = Color3.fromHex("#FFD700")
+                        flash.BackgroundTransparency = 0.5
+                        flash.BorderSizePixel = 0
+                        flash.ZIndex = 100
+                        flash.Active = false
+                        flash.Parent = desc
+                        Instance.new("UICorner", flash).CornerRadius = UDim.new(0, 8)
+
+                        t11.value2:Create(flash, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                            BackgroundTransparency = 1,
+                            Size = UDim2.new(1.1, 0, 1.1, 0),
+                            Position = UDim2.new(-0.05, 0, -0.05, 0)
+                        }):Play()
+                        task.delay(0.45, function() if flash and flash.Parent then flash:Destroy() end end)
+
+                        -- Pulso tamano
+                        local origSize = desc.Size
+                        t11.value2:Create(desc, TweenInfo.new(0.08, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+                            Size = UDim2.new(origSize.X.Scale, origSize.X.Offset - 2, origSize.Y.Scale, origSize.Y.Offset - 2)
+                        }):Play()
+                        task.delay(0.08, function()
+                            if desc and desc.Parent then
+                                t11.value2:Create(desc, TweenInfo.new(0.15, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+                                    Size = origSize
+                                }):Play()
+                            end
+                        end)
+                    end)
+                end
+            end
+
+            for _, desc in ipairs(root:GetDescendants()) do addEffect(desc) end
+            root.DescendantAdded:Connect(function(desc)
+                task.wait(0.2)
+                addEffect(desc)
+            end)
+        end)
+    end
+
     -- ═══════════════════════════════════════════════════════════════
-    -- ECLIPSE: Synced Background DETRAS de WindUI + Forzar Transparencia
+    -- ██  SYNC ECLIPSE + REORGANIZAR TABS + PARTICLES + EFFECTS  ██
     -- ═══════════════════════════════════════════════════════════════
 
     task.spawn(function()
@@ -867,7 +1346,10 @@ task.spawn(function(...)
                 mainWindow = windowGui:FindFirstChild("Main")
                 if not mainWindow then
                     for _, c in ipairs(windowGui:GetChildren()) do
-                        if (c:IsA("CanvasGroup") or c:IsA("Frame")) and c.AbsoluteSize.X > 100 then mainWindow = c break end
+                        if (c:IsA("CanvasGroup") or c:IsA("Frame")) and c.AbsoluteSize.X > 100 then
+                            mainWindow = c
+                            break
+                        end
                     end
                 end
                 if mainWindow then break end
@@ -875,9 +1357,50 @@ task.spawn(function(...)
         end
         if not mainWindow then warn("[Eclipse] Window not found") return end
 
-        task.wait(2)
+        task.wait(3)
 
-        -- Forzar transparencia en elementos internos de WindUI
+        -- ★ REORGANIZAR TABS ARRIBA
+        local function reorganizeTabs(obj, depth)
+            if depth > 15 then return end
+            for _, child in ipairs(obj:GetChildren()) do
+                if child:IsA("ScrollingFrame") then
+                    local btns = 0
+                    for _, sub in ipairs(child:GetChildren()) do
+                        if sub:IsA("TextButton") or sub:IsA("ImageButton") then btns = btns + 1 end
+                    end
+                    if btns >= 3 and btns <= 10 then
+                        child.Size = UDim2.new(1, 0, 0, 40)
+                        child.Position = UDim2.fromOffset(0, 0)
+                        child.ScrollingDirection = Enum.ScrollingDirection.X
+                        child.CanvasSize = UDim2.new(0, 0, 0, 0)
+                        child.AutomaticCanvasSize = Enum.AutomaticSize.X
+                        child.ScrollBarThickness = 0
+
+                        local layout = child:FindFirstChildOfClass("UIListLayout")
+                        if layout then
+                            layout.FillDirection = Enum.FillDirection.Horizontal
+                            layout.Padding = UDim.new(0, 2)
+                        end
+
+                        for _, btn in ipairs(child:GetChildren()) do
+                            if btn:IsA("TextButton") or btn:IsA("ImageButton") then
+                                btn.Size = UDim2.new(0, 70, 1, -6)
+                                if not btn:FindFirstChildOfClass("UICorner") then
+                                    Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 6)
+                                end
+                            end
+                        end
+                        return true
+                    end
+                end
+                if reorganizeTabs(child, depth + 1) then return true end
+            end
+            return false
+        end
+
+        reorganizeTabs(mainWindow, 0)
+
+        -- Forzar transparencia
         local function forceClear(obj, depth)
             if depth > 12 then return end
             for _, child in ipairs(obj:GetChildren()) do
@@ -898,23 +1421,32 @@ task.spawn(function(...)
         if mainWindow:IsA("CanvasGroup") then mainWindow.GroupTransparency = 0 end
         forceClear(mainWindow, 0)
 
-        -- Re-forzar periodicamente
-        task.spawn(function() for i = 1, 80 do task.wait(0.5) forceClear(mainWindow, 0) end end)
+        -- Re-forzar por 40 segundos
+        task.spawn(function()
+            for i = 1, 80 do task.wait(0.5) forceClear(mainWindow, 0) end
+        end)
 
         -- Detectar nuevos elementos opacos
         mainWindow.DescendantAdded:Connect(function(desc)
             task.wait(0.1)
-            if desc:IsA("CanvasGroup") then desc.GroupTransparency = 0 desc.BackgroundTransparency = 1
+            if desc:IsA("CanvasGroup") then
+                desc.GroupTransparency = 0
+                desc.BackgroundTransparency = 1
             elseif desc:IsA("Frame") then
                 local s, p = desc.AbsoluteSize, mainWindow.AbsoluteSize
-                if p.X > 0 and p.Y > 0 and (s.X*s.Y)/(p.X*p.Y) > 0.15 then desc.BackgroundTransparency = 0.97 end
+                if p.X > 0 and p.Y > 0 and (s.X*s.Y)/(p.X*p.Y) > 0.15 then
+                    desc.BackgroundTransparency = 0.97
+                end
             end
         end)
 
-        -- ★ CREAR SCREENGUI SINCRONIZADO CON ECLIPSE PROGRAMATICO
+        -- ★ SCREENGUI SINCRONIZADO CON ECLIPSE
         local bgGui = Instance.new("ScreenGui")
-        bgGui.Name = "EclipseBG" bgGui.ResetOnSpawn = false bgGui.DisplayOrder = -5
-        bgGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling bgGui.Parent = guiParent
+        bgGui.Name = "EclipseBG"
+        bgGui.ResetOnSpawn = false
+        bgGui.DisplayOrder = -5
+        bgGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+        bgGui.Parent = guiParent
 
         local bgFrame = Instance.new("Frame")
         bgFrame.BackgroundTransparency = 1
@@ -923,10 +1455,13 @@ task.spawn(function(...)
         bgFrame.Parent = bgGui
         Instance.new("UICorner", bgFrame).CornerRadius = UDim.new(0, 10)
 
-        -- Dibujar el eclipse programaticamente
+        -- Dibujar eclipse programatico
         createEclipse(bgFrame)
 
-        -- Sincronizar posicion cada frame
+        -- Particulas cayendo (copos de nieve eclipse)
+        createFallingParticles(bgFrame)
+
+        -- Sync posicion cada frame
         RunService.RenderStepped:Connect(function()
             if mainWindow and mainWindow.Parent and bgFrame and bgFrame.Parent then
                 bgFrame.Position = UDim2.fromOffset(mainWindow.AbsolutePosition.X, mainWindow.AbsolutePosition.Y)
@@ -934,7 +1469,10 @@ task.spawn(function(...)
             end
         end)
 
-        -- ★ TAMBIEN intentar la imagen como bonus (si carga, se ve encima)
+        -- ★ EFECTOS DE ACTIVACION
+        hookActivationEffects(mainWindow)
+
+        -- Bonus imagen del eclipse (si carga)
         local bonusImg = Instance.new("ImageLabel")
         bonusImg.Size = UDim2.fromScale(1, 1)
         bonusImg.BackgroundTransparency = 1
@@ -951,31 +1489,71 @@ task.spawn(function(...)
     end)
 
     -- ═══════════════════════════════════════════════════════════════
-    -- LAUNCHER BUTTON — MINIMALISTA CON CORONA
+    -- ██  LAUNCHER — CORONA SOLAR  ██
     -- ═══════════════════════════════════════════════════════════════
 
     local launcherParent = gethui and gethui() or game:GetService("CoreGui") or t11.value5:WaitForChild("PlayerGui")
-    for _, v in ipairs(launcherParent:GetChildren()) do if v.Name == "SAIOPS_Launcher" then v:Destroy() end end
+    for _, v in ipairs(launcherParent:GetChildren()) do
+        if v.Name == "SAIOPS_Launcher" then v:Destroy() end
+    end
 
-    local lGui = Instance.new("ScreenGui") lGui.Name = "SAIOPS_Launcher" lGui.ResetOnSpawn = false lGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling lGui.Parent = launcherParent
+    local lGui = Instance.new("ScreenGui")
+    lGui.Name = "SAIOPS_Launcher"
+    lGui.ResetOnSpawn = false
+    lGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    lGui.Parent = launcherParent
 
-    local lFrame = Instance.new("Frame") lFrame.Size = UDim2.fromOffset(50, 50) lFrame.Position = UDim2.new(1, -70, 1, -70)
-    lFrame.BackgroundColor3 = Color3.fromHex("#0A0500") lFrame.BorderSizePixel = 0 lFrame.Active = true lFrame.Parent = lGui
+    local lFrame = Instance.new("Frame")
+    lFrame.Size = UDim2.fromOffset(50, 50)
+    lFrame.Position = UDim2.new(1, -70, 1, -70)
+    lFrame.BackgroundColor3 = Color3.fromHex("#0A0500")
+    lFrame.BorderSizePixel = 0
+    lFrame.Active = true
+    lFrame.Parent = lGui
     Instance.new("UICorner", lFrame).CornerRadius = UDim.new(1, 0)
 
-    local cOuter = Instance.new("Frame") cOuter.Size = UDim2.fromOffset(82, 82) cOuter.Position = UDim2.fromScale(0.5, 0.5) cOuter.AnchorPoint = Vector2.new(0.5, 0.5)
-    cOuter.BackgroundColor3 = Color3.fromHex("#FF4500") cOuter.BackgroundTransparency = 0.65 cOuter.BorderSizePixel = 0 cOuter.ZIndex = 0 cOuter.Active = false cOuter.Parent = lFrame
+    local cOuter = Instance.new("Frame")
+    cOuter.Size = UDim2.fromOffset(82, 82)
+    cOuter.Position = UDim2.fromScale(0.5, 0.5)
+    cOuter.AnchorPoint = Vector2.new(0.5, 0.5)
+    cOuter.BackgroundColor3 = Color3.fromHex("#FF4500")
+    cOuter.BackgroundTransparency = 0.65
+    cOuter.BorderSizePixel = 0
+    cOuter.ZIndex = 0
+    cOuter.Active = false
+    cOuter.Parent = lFrame
     Instance.new("UICorner", cOuter).CornerRadius = UDim.new(1, 0)
 
-    local cMid = Instance.new("Frame") cMid.Size = UDim2.fromOffset(68, 68) cMid.Position = UDim2.fromScale(0.5, 0.5) cMid.AnchorPoint = Vector2.new(0.5, 0.5)
-    cMid.BackgroundColor3 = Color3.fromHex("#FF6B35") cMid.BackgroundTransparency = 0.55 cMid.BorderSizePixel = 0 cMid.ZIndex = 0 cMid.Active = false cMid.Parent = lFrame
+    local cMid = Instance.new("Frame")
+    cMid.Size = UDim2.fromOffset(68, 68)
+    cMid.Position = UDim2.fromScale(0.5, 0.5)
+    cMid.AnchorPoint = Vector2.new(0.5, 0.5)
+    cMid.BackgroundColor3 = Color3.fromHex("#FF6B35")
+    cMid.BackgroundTransparency = 0.55
+    cMid.BorderSizePixel = 0
+    cMid.ZIndex = 0
+    cMid.Active = false
+    cMid.Parent = lFrame
     Instance.new("UICorner", cMid).CornerRadius = UDim.new(1, 0)
 
-    local cIn = Instance.new("Frame") cIn.Size = UDim2.fromOffset(58, 58) cIn.Position = UDim2.fromScale(0.5, 0.5) cIn.AnchorPoint = Vector2.new(0.5, 0.5)
-    cIn.BackgroundColor3 = Color3.fromHex("#FFD700") cIn.BackgroundTransparency = 0.7 cIn.BorderSizePixel = 0 cIn.ZIndex = 0 cIn.Active = false cIn.Parent = lFrame
+    local cIn = Instance.new("Frame")
+    cIn.Size = UDim2.fromOffset(58, 58)
+    cIn.Position = UDim2.fromScale(0.5, 0.5)
+    cIn.AnchorPoint = Vector2.new(0.5, 0.5)
+    cIn.BackgroundColor3 = Color3.fromHex("#FFD700")
+    cIn.BackgroundTransparency = 0.7
+    cIn.BorderSizePixel = 0
+    cIn.ZIndex = 0
+    cIn.Active = false
+    cIn.Parent = lFrame
     Instance.new("UICorner", cIn).CornerRadius = UDim.new(1, 0)
 
-    local lStroke = Instance.new("UIStroke") lStroke.Color = Color3.fromHex("#FFFFFF") lStroke.Thickness = 2 lStroke.Transparency = 0.05 lStroke.Parent = lFrame
+    local lStroke = Instance.new("UIStroke")
+    lStroke.Color = Color3.fromHex("#FFFFFF")
+    lStroke.Thickness = 2
+    lStroke.Transparency = 0.05
+    lStroke.Parent = lFrame
+
     local lGrad = Instance.new("UIGradient")
     lGrad.Color = ColorSequence.new({
         ColorSequenceKeypoint.new(0, Color3.fromHex("#FF4500")),
@@ -986,27 +1564,58 @@ task.spawn(function(...)
     })
     lGrad.Parent = lStroke
 
-    local lBtn = Instance.new("ImageButton") lBtn.Size = UDim2.fromScale(0.72, 0.72) lBtn.Position = UDim2.fromScale(0.14, 0.14)
-    lBtn.BackgroundTransparency = 1 lBtn.Image = "rbxassetid://104937666038724" lBtn.ZIndex = 2 lBtn.Parent = lFrame
+    local lBtn = Instance.new("ImageButton")
+    lBtn.Size = UDim2.fromScale(0.72, 0.72)
+    lBtn.Position = UDim2.fromScale(0.14, 0.14)
+    lBtn.BackgroundTransparency = 1
+    lBtn.Image = "rbxassetid://104937666038724"
+    lBtn.ZIndex = 2
+    lBtn.Parent = lFrame
 
-    task.spawn(function() while cOuter.Parent do
-        t11.value2:Create(cOuter, TweenInfo.new(2.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Size=UDim2.fromOffset(92,92),BackgroundTransparency=0.5}):Play()
-        t11.value2:Create(cMid, TweenInfo.new(2.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Size=UDim2.fromOffset(76,76),BackgroundTransparency=0.4}):Play()
-        t11.value2:Create(cIn, TweenInfo.new(2.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Size=UDim2.fromOffset(64,64),BackgroundTransparency=0.55}):Play()
-        task.wait(2.5)
-        t11.value2:Create(cOuter, TweenInfo.new(2.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Size=UDim2.fromOffset(82,82),BackgroundTransparency=0.65}):Play()
-        t11.value2:Create(cMid, TweenInfo.new(2.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Size=UDim2.fromOffset(68,68),BackgroundTransparency=0.55}):Play()
-        t11.value2:Create(cIn, TweenInfo.new(2.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Size=UDim2.fromOffset(58,58),BackgroundTransparency=0.7}):Play()
-        task.wait(2.5)
-    end end)
+    -- Corona pulse
+    task.spawn(function()
+        while cOuter.Parent do
+            t11.value2:Create(cOuter, TweenInfo.new(2.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Size=UDim2.fromOffset(92,92),BackgroundTransparency=0.5}):Play()
+            t11.value2:Create(cMid, TweenInfo.new(2.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Size=UDim2.fromOffset(76,76),BackgroundTransparency=0.4}):Play()
+            t11.value2:Create(cIn, TweenInfo.new(2.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Size=UDim2.fromOffset(64,64),BackgroundTransparency=0.55}):Play()
+            task.wait(2.5)
+            t11.value2:Create(cOuter, TweenInfo.new(2.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Size=UDim2.fromOffset(82,82),BackgroundTransparency=0.65}):Play()
+            t11.value2:Create(cMid, TweenInfo.new(2.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Size=UDim2.fromOffset(68,68),BackgroundTransparency=0.55}):Play()
+            t11.value2:Create(cIn, TweenInfo.new(2.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Size=UDim2.fromOffset(58,58),BackgroundTransparency=0.7}):Play()
+            task.wait(2.5)
+        end
+    end)
 
-    task.spawn(function() while lGrad.Parent do t11.value2:Create(lGrad, TweenInfo.new(3, Enum.EasingStyle.Linear), {Rotation=360}):Play() task.wait(3) lGrad.Rotation = 0 end end)
+    -- Gradiente rotation
+    task.spawn(function()
+        while lGrad.Parent do
+            t11.value2:Create(lGrad, TweenInfo.new(3, Enum.EasingStyle.Linear), {Rotation=360}):Play()
+            task.wait(3)
+            lGrad.Rotation = 0
+        end
+    end)
 
+    -- Drag
     local dragging, dragInput, dragStart, startPos
-    lFrame.InputBegan:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseButton1 or i.UserInputType == Enum.UserInputType.Touch then dragging = true dragStart = i.Position startPos = lFrame.Position i.Changed:Connect(function() if i.UserInputState == Enum.UserInputState.End then dragging = false end end) end end)
-    lFrame.InputChanged:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseMovement or i.UserInputType == Enum.UserInputType.Touch then dragInput = i end end)
-    t10.value3.InputChanged:Connect(function(i) if i == dragInput and dragging then local d = i.Position - dragStart lFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset+d.X, startPos.Y.Scale, startPos.Y.Offset+d.Y) end end)
+    lFrame.InputBegan:Connect(function(i)
+        if i.UserInputType == Enum.UserInputType.MouseButton1 or i.UserInputType == Enum.UserInputType.Touch then
+            dragging = true
+            dragStart = i.Position
+            startPos = lFrame.Position
+            i.Changed:Connect(function() if i.UserInputState == Enum.UserInputState.End then dragging = false end end)
+        end
+    end)
+    lFrame.InputChanged:Connect(function(i)
+        if i.UserInputType == Enum.UserInputType.MouseMovement or i.UserInputType == Enum.UserInputType.Touch then dragInput = i end
+    end)
+    t10.value3.InputChanged:Connect(function(i)
+        if i == dragInput and dragging then
+            local d = i.Position - dragStart
+            lFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset+d.X, startPos.Y.Scale, startPos.Y.Offset+d.Y)
+        end
+    end)
 
+    -- Hover
     lBtn.MouseEnter:Connect(function()
         t11.value2:Create(lStroke, TweenInfo.new(0.2), {Thickness=3.5,Transparency=0}):Play()
         t11.value2:Create(lFrame, TweenInfo.new(0.15, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Size=UDim2.fromOffset(56,56)}):Play()
@@ -1018,53 +1627,132 @@ task.spawn(function(...)
         t11.value2:Create(cOuter, TweenInfo.new(0.25), {BackgroundTransparency=0.65}):Play()
     end)
 
+    -- Click con efecto
     lBtn.MouseButton1Click:Connect(function()
+        -- Flash blanco
+        local clickFlash = Instance.new("Frame")
+        clickFlash.Size = UDim2.fromScale(1, 1)
+        clickFlash.BackgroundColor3 = Color3.fromHex("#FFFFFF")
+        clickFlash.BackgroundTransparency = 0.3
+        clickFlash.BorderSizePixel = 0
+        clickFlash.ZIndex = 100
+        clickFlash.Active = false
+        clickFlash.Parent = lFrame
+        Instance.new("UICorner", clickFlash).CornerRadius = UDim.new(1, 0)
+        t11.value2:Create(clickFlash, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
+        task.delay(0.3, function() if clickFlash and clickFlash.Parent then clickFlash:Destroy() end end)
+
+        -- Pulso
         t11.value2:Create(cIn, TweenInfo.new(0.04), {BackgroundTransparency=0.1,BackgroundColor3=Color3.fromHex("#FFFFFF")}):Play()
         t11.value2:Create(lFrame, TweenInfo.new(0.05, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size=UDim2.fromOffset(44,44)}):Play()
         task.delay(0.05, function()
-            if lFrame and lFrame.Parent then t11.value2:Create(lFrame, TweenInfo.new(0.1, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Size=UDim2.fromOffset(50,50)}):Play()
-                task.delay(0.25, function() if cIn and cIn.Parent then t11.value2:Create(cIn, TweenInfo.new(0.25), {BackgroundTransparency=0.7,BackgroundColor3=Color3.fromHex("#FFD700")}):Play() end end) end
+            if lFrame and lFrame.Parent then
+                t11.value2:Create(lFrame, TweenInfo.new(0.1, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Size=UDim2.fromOffset(50,50)}):Play()
+                task.delay(0.25, function()
+                    if cIn and cIn.Parent then
+                        t11.value2:Create(cIn, TweenInfo.new(0.25), {BackgroundTransparency=0.7,BackgroundColor3=Color3.fromHex("#FFD700")}):Play()
+                    end
+                end)
+            end
         end)
+
         if t11.value14 and t11.value14.Toggle then pcall(function() t11.value14:Toggle() end) return end
         local wg = t11.value33()
-        if wg then local m = wg:FindFirstChild("Main") or wg:FindFirstChildOfClass("Frame") or wg:FindFirstChildOfClass("CanvasGroup")
-            if m then if wg.Enabled and m.Visible then wg.Enabled = false m.Visible = false else wg.Enabled = true m.Visible = true end return end
-            wg.Enabled = not wg.Enabled end
+        if wg then
+            local m = wg:FindFirstChild("Main") or wg:FindFirstChildOfClass("Frame") or wg:FindFirstChildOfClass("CanvasGroup")
+            if m then
+                if wg.Enabled and m.Visible then wg.Enabled = false m.Visible = false
+                else wg.Enabled = true m.Visible = true end
+                return
+            end
+            wg.Enabled = not wg.Enabled
+        end
     end)
 
     -- ═══════════════════════════════════════════════════════════════
-    -- STATS BAR — LIMPIO, SIN EMOJIS
+    -- ██  STATS BAR — FPS + PING  ██
     -- ═══════════════════════════════════════════════════════════════
 
     task.spawn(function()
         task.wait(1.5)
         local pg = t11.value5:WaitForChild("PlayerGui")
-        local sGui = Instance.new("ScreenGui") sGui.Name = "EclipseStats" sGui.ResetOnSpawn = false sGui.DisplayOrder = 200 sGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling sGui.IgnoreGuiInset = true sGui.Parent = pg
+        local sGui = Instance.new("ScreenGui")
+        sGui.Name = "EclipseStats"
+        sGui.ResetOnSpawn = false
+        sGui.DisplayOrder = 200
+        sGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+        sGui.IgnoreGuiInset = true
+        sGui.Parent = pg
 
-        local sFrame = Instance.new("Frame") sFrame.Size = UDim2.new(0, 220, 0, 28) sFrame.Position = UDim2.new(0.5, -110, 0, 6) sFrame.BackgroundColor3 = Color3.fromHex("#060300") sFrame.BackgroundTransparency = 0.05 sFrame.BorderSizePixel = 0 sFrame.Parent = sGui
+        local sFrame = Instance.new("Frame")
+        sFrame.Size = UDim2.new(0, 220, 0, 28)
+        sFrame.Position = UDim2.new(0.5, -110, 0, 6)
+        sFrame.BackgroundColor3 = Color3.fromHex("#060300")
+        sFrame.BackgroundTransparency = 0.05
+        sFrame.BorderSizePixel = 0
+        sFrame.Parent = sGui
         Instance.new("UICorner", sFrame).CornerRadius = UDim.new(0, 10)
 
-        local ss = Instance.new("UIStroke") ss.Color = Color3.fromHex("#FFFFFF") ss.Thickness = 1.5 ss.Parent = sFrame
-        local sg = Instance.new("UIGradient") sg.Color = ColorSequence.new({
+        local ss = Instance.new("UIStroke")
+        ss.Color = Color3.fromHex("#FFFFFF")
+        ss.Thickness = 1.5
+        ss.Parent = sFrame
+
+        local sg = Instance.new("UIGradient")
+        sg.Color = ColorSequence.new({
             ColorSequenceKeypoint.new(0, Color3.fromHex("#FF4500")),
             ColorSequenceKeypoint.new(0.25, Color3.fromHex("#FFD700")),
             ColorSequenceKeypoint.new(0.5, Color3.fromHex("#FFFFFF")),
             ColorSequenceKeypoint.new(0.75, Color3.fromHex("#FFD700")),
             ColorSequenceKeypoint.new(1, Color3.fromHex("#FF4500"))
-        }) sg.Parent = ss
-        task.spawn(function() while sg.Parent do t11.value2:Create(sg, TweenInfo.new(4, Enum.EasingStyle.Linear), {Rotation=360}):Play() task.wait(4) sg.Rotation = 0 end end)
+        })
+        sg.Parent = ss
 
-        local sgl = Instance.new("UIStroke") sgl.Color = Color3.fromHex("#FF6B35") sgl.Thickness = 5 sgl.Transparency = 0.8 sgl.Parent = sFrame
-        task.spawn(function() while sgl.Parent do t11.value2:Create(sgl, TweenInfo.new(2.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Transparency=0.6,Thickness=8}):Play() task.wait(2.5) t11.value2:Create(sgl, TweenInfo.new(2.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Transparency=0.8,Thickness=5}):Play() task.wait(2.5) end end)
+        task.spawn(function()
+            while sg.Parent do
+                t11.value2:Create(sg, TweenInfo.new(4, Enum.EasingStyle.Linear), {Rotation=360}):Play()
+                task.wait(4)
+                sg.Rotation = 0
+            end
+        end)
 
-        local sl = Instance.new("TextLabel") sl.Size = UDim2.new(1, -12, 1, 0) sl.Position = UDim2.new(0, 6, 0, 0) sl.BackgroundTransparency = 1 sl.Font = Enum.Font.GothamBold sl.TextSize = 12 sl.TextColor3 = Color3.fromHex("#FFD700") sl.TextXAlignment = Enum.TextXAlignment.Center sl.Text = "FPS: --  |  Ping: -- ms" sl.Parent = sFrame
+        local sgl = Instance.new("UIStroke")
+        sgl.Color = Color3.fromHex("#FF6B35")
+        sgl.Thickness = 5
+        sgl.Transparency = 0.8
+        sgl.Parent = sFrame
 
-        local fps = 0 local last = tick()
+        task.spawn(function()
+            while sgl.Parent do
+                t11.value2:Create(sgl, TweenInfo.new(2.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Transparency=0.6,Thickness=8}):Play()
+                task.wait(2.5)
+                t11.value2:Create(sgl, TweenInfo.new(2.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Transparency=0.8,Thickness=5}):Play()
+                task.wait(2.5)
+            end
+        end)
+
+        local sl = Instance.new("TextLabel")
+        sl.Size = UDim2.new(1, -12, 1, 0)
+        sl.Position = UDim2.new(0, 6, 0, 0)
+        sl.BackgroundTransparency = 1
+        sl.Font = Enum.Font.GothamBold
+        sl.TextSize = 12
+        sl.TextColor3 = Color3.fromHex("#FFD700")
+        sl.TextXAlignment = Enum.TextXAlignment.Center
+        sl.Text = "FPS: --  |  Ping: -- ms"
+        sl.Parent = sFrame
+
+        local fps = 0
+        local last = tick()
         t11.value1.Heartbeat:Connect(function()
-            fps = fps + 1 local now = tick()
+            fps = fps + 1
+            local now = tick()
             if now - last >= 1 then
-                local f = fps fps = 0 last = now
-                local p = 0 pcall(function() p = math.floor(Players.LocalPlayer:GetNetworkPing() * 1000) end)
+                local f = fps
+                fps = 0
+                last = now
+                local p = 0
+                pcall(function() p = math.floor(Players.LocalPlayer:GetNetworkPing() * 1000) end)
                 sl.Text = string.format("FPS: %d  |  Ping: %d ms", f, p)
                 if f >= 50 and p <= 80 then sl.TextColor3 = Color3.fromHex("#FFD700")
                 elseif f >= 30 and p <= 150 then sl.TextColor3 = Color3.fromHex("#FFB380")
@@ -1073,5 +1761,5 @@ task.spawn(function(...)
         end)
     end)
 
-    print("[Eclipse] Loaded v3.0")
+    print("[Eclipse] Loaded v4.0 Complete — Tabs on top, falling particles, activation effects")
 end)
